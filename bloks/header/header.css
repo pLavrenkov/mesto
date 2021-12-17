@@ -8,3 +8,23 @@
   box-sizing: border-box;
   border-bottom: 1px solid #545454;
 }
+
+@media screen and (max-width: 1279px) {
+  .header {
+    width: calc(100% - 2 * 90px);
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .header {
+    width: calc(100% - 2 * 70px);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    width: 100%;
+    min-height: 56px;
+    padding-left: 27px;
+  }
+}
