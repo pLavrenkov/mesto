@@ -1,0 +1,14 @@
+/* импорт шрифтов и normolize */
+@import url(../vendor/normalize.css);
+@import url(../vendor/fonts/fonts.css);
+
+/* удалить после верстки */
+@import url(../vendor/check.css);
+
+/* общие блоки страницы */
+@import url(../bloks/body/body.css);
+@import url(../bloks/mainpage/mainpage.css);
+
+/* блок header */
+@import url(../bloks/header/header.css);
+@import url(../bloks/header/__logo/header__logo.css);
