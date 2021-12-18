@@ -1,0 +1,11 @@
+.profile__info {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  -ms-grid-columns: max-content 1fr;
+  grid-template-columns: max-content 1fr;
+  -ms-grid-rows: repeat(2, auto);
+  grid-template-rows: repeat(2, auto);
+  gap: 16px 18px;
+  align-items: flex-end;
+}

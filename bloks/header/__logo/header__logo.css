@@ -1,6 +1,5 @@
 .header__logo {
   align-items: flex-start;
-  object-fit: scale-down;
 }
 
 @media screen and (max-width: 767px) {

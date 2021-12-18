@@ -1,0 +1,26 @@
+.content {
+  width: calc(100% - 200px * 2);
+  margin: 0 auto;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  color: #fff;
+}
+
+@media screen and (max-width: 1279px) {
+  .content {
+    width: calc(100% - 2 * 90px);
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .content {
+    width: calc(100% - 2 * 70px);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .content {
+    width: calc(100% - 2 * 19px);
+    min-height: 56px;
+    padding-left: 27px;
+  }
+}
