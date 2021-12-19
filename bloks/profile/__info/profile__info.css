@@ -6,6 +6,15 @@
   grid-template-columns: max-content 1fr;
   -ms-grid-rows: repeat(2, auto);
   grid-template-rows: repeat(2, auto);
-  gap: 16px 18px;
-  align-items: flex-end;
+  grid-gap: 16px 18px;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__info {
+    -ms-grid-columns: 18px max-content 18px;
+    grid-template-columns: 18px max-content 18px;
+    -ms-grid-rows: repeat(2, auto);
+    grid-template-rows: repeat(2, auto);
+    grid-gap: 14px 10px;
+  }
 }
