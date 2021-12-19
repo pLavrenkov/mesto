@@ -10,11 +10,11 @@
 @import url(../bloks/mainpage/mainpage.css);
 @import url(../bloks/content/content.css);
 
-/* блок header */
+/* секция header */
 @import url(../bloks/header/header.css);
 @import url(../bloks/header/__logo/header__logo.css);
 
-/* блок profile */
+/* секция profile */
 @import url(../bloks/profile/profile.css);
 @import url(../bloks/profile/__content/profile__content.css);
 @import url(../bloks/profile/__avatar/profile__avatar.css);
@@ -23,3 +23,14 @@
 @import url(../bloks/profile/__subtitle/profile__subtitle.css);
 @import url(../bloks/profile/__edit-button/profile__edit-button.css);
 @import url(../bloks/profile/__add-button/profile__add-button.css);
+
+/* секция elements */
+@import url(../bloks/elements/elements.css);
+@import url(../bloks/element-list/element-list.css);
+@import url(../bloks/element/element.css);
+@import url(../bloks/element/__picture/element__picture.css);
+@import url(../bloks/element/__photo/element__photo.css);
+@import url(../bloks/element/__capture/element__capture.css);
+@import url(../bloks/element/__title/element__title.css);
+@import url(../bloks/element/__like/element__like.css);
+@import url(../bloks/element/__like/_active/element__like_active.css);
