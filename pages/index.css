@@ -38,3 +38,12 @@
 /* секция footer */
 @import url(../bloks/footer/footer.css);
 @import url(../bloks/footer/__copyright/footer__copyright.css);
+
+/* секция pop-up */
+@import url(../bloks/pop-up/pop-up.css);
+@import url(../bloks/pop-up/_opened/pop-up_opened.css);
+@import url(../bloks/pop-up/__container/pop-up__container.css);
+@import url(../bloks/pop-up/__button-close/pop-up__button-close.css);
+@import url(../bloks/pop-up/__form/pop-up__form.css);
+@import url(../bloks/pop-up/__title/pop-up__title.css);
+@import url(../bloks/pop-up/__field/pop-up__field.css);

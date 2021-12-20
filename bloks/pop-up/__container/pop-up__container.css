@@ -1,0 +1,6 @@
+.pop-up__container {
+  display: grid;
+  grid-template-columns: 32px 1fr 32px;
+  grid-template-rows: 32px 1fr 32px;
+  grid-gap: 8px;
+}
