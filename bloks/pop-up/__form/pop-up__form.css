@@ -11,3 +11,12 @@
   flex-direction: column;
   box-sizing: border-box;
 }
+
+@media screen and (max-width: 767px) {
+  .pop-up__form {
+    width: 282px;
+    grid-column: 1/2;
+    grid-row: 2/3;
+    padding: 25px 22px;
+  }
+}
