@@ -11,6 +11,8 @@
   grid-row: 1/2;
   cursor: pointer;
   transition: .5s ease-out;
+  padding: 0;
+  background-size: 32px 32px;
 }
 
 .pop-up__button-close:hover {
@@ -20,8 +22,11 @@
 
 @media screen and (max-width: 767px) {
   .pop-up__button-close {
+    width: 20px;
+    height: 20px;
     grid-column: 1/2;
     grid-row: 1/2;
     justify-self: flex-end;
+    background-size: 20px 20px;
   }
 }

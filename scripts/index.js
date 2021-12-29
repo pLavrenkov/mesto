@@ -10,10 +10,8 @@ let formElement = document.querySelector('.pop-up__form');
 let submitButton = document.querySelector('.pop-up__button-submit');
 // скрипт для открытия pop-up и заполнения полей формы текущим значением
 function popUpOpen() {
-  let name = nameProfile.textContent;
-  nameInput.setAttribute('value', name);
-  let job = jobProfile.textContent;
-  jobInput.setAttribute('value', job);
+  nameInput.value = nameProfile.textContent;
+  jobInput.value = jobProfile.textContent;
   popUp.classList.add('pop-up_opened');
 }
 openButton.addEventListener('click', popUpOpen);
@@ -25,11 +23,8 @@ closeButton.addEventListener('click', popUpClose);
 // скрипт для заполнения формы
 function formSubmitHandler(evt) {
   evt.preventDefault();
-  let nameNew = nameInput.value;
-  let jobNew = jobInput.value;
-  console.log(nameNew);
-  nameProfile.textContent = nameNew;
-  jobProfile.textContent = jobNew;
+  nameProfile.textContent = nameInput.value;
+  jobProfile.textContent = jobInput.value;
   popUpClose();
 }
 submitButton.addEventListener('click', formSubmitHandler);

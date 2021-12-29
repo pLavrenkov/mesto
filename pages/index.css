@@ -2,9 +2,6 @@
 @import url(../vendor/normalize.css);
 @import url(../vendor/fonts/fonts.css);
 
-/* удалить после верстки */
-@import url(../vendor/check.css);
-
 /* общие блоки страницы */
 @import url(../bloks/body/body.css);
 @import url(../bloks/mainpage/mainpage.css);
