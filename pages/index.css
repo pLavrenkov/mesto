@@ -30,6 +30,7 @@
 @import url(../bloks/element/__capture/element__capture.css);
 @import url(../bloks/element/__title/element__title.css);
 @import url(../bloks/element/__like/element__like.css);
+@import url(../bloks/element/__like/_active/element__like_active.css);
 
 /* секция footer */
 @import url(../bloks/footer/footer.css);
