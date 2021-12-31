@@ -113,8 +113,16 @@ closePopUpNewCardButton.addEventListener('click', popUpNewCardClose);
 // скрипт для добавления новой карточки
 function formSubmitNewCardHandler(evt) {
   evt.preventDefault();
-  checkNewCardForm();
   addCard(titleInput.value, imageInput.value);
   popUpNewCardClose();
 }
 submitNewCardButton.addEventListener('click', formSubmitNewCardHandler);
+
+// скрипт для лайков
+const likeButton = document.querySelectorAll('.element__like');
+
+likeButton.forEach(elem => {
+  elem.addEventListener('click', function(el){
+    el.target.classList.toggle('element__like_active');
+  });
+});
