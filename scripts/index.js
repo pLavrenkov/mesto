@@ -85,18 +85,20 @@ function popUpProfileClose() {
 closeProfileButton.addEventListener('click', popUpProfileClose);
 
 // скрипт для заполнения формы pop-up Profile
-function formSubmitHandler(evt) {
+function formSubmitProfileHandler(evt) {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
   popUpProfileClose();
 }
-submitProfileButton.addEventListener('click', formSubmitHandler);
+submitProfileButton.addEventListener('click', formSubmitProfileHandler);
 
 // скрипт для открытия pop-up NewCard
 
 function popUpNewCardOpen() {
   popUpOpen(popUpNewCard);
+  titleInput.value = '';
+  imageInput.value = '';
 }
 
 openNewCardButton.addEventListener('click', popUpNewCardOpen);
@@ -107,3 +109,11 @@ function popUpNewCardClose() {
   popUpClose(popUpNewCard);
 }
 closePopUpNewCardButton.addEventListener('click', popUpNewCardClose);
+
+// скрипт для добавления новой карточки
+function formSubmitNewCardHandler(evt) {
+  evt.preventDefault();
+  addCard(titleInput.value, imageInput.value);
+  popUpNewCardClose();
+}
+submitNewCardButton.addEventListener('click', formSubmitNewCardHandler);
