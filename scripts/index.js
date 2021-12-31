@@ -97,8 +97,6 @@ submitProfileButton.addEventListener('click', formSubmitProfileHandler);
 
 function popUpNewCardOpen() {
   popUpOpen(popUpNewCard);
-  titleInput.value = '';
-  imageInput.value = '';
 }
 
 openNewCardButton.addEventListener('click', popUpNewCardOpen);
@@ -113,8 +111,17 @@ closePopUpNewCardButton.addEventListener('click', popUpNewCardClose);
 // скрипт для добавления новой карточки
 function formSubmitNewCardHandler(evt) {
   evt.preventDefault();
-  checkNewCardForm();
   addCard(titleInput.value, imageInput.value);
   popUpNewCardClose();
 }
 submitNewCardButton.addEventListener('click', formSubmitNewCardHandler);
+
+// скрип для добавления лайков
+let likeButtons = document.getElementsByClassName('element__like');
+console.log(likeButtons);
+
+for(i = 0; i < likeButtons.length; i++) {
+  likeButtons[i].addEventListener('click', function (elem) {
+    elem.target.classList.toggle('element__like_active');
+  });
+}
