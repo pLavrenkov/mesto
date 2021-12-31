@@ -113,6 +113,7 @@ closePopUpNewCardButton.addEventListener('click', popUpNewCardClose);
 // скрипт для добавления новой карточки
 function formSubmitNewCardHandler(evt) {
   evt.preventDefault();
+  checkNewCardForm();
   addCard(titleInput.value, imageInput.value);
   popUpNewCardClose();
 }
