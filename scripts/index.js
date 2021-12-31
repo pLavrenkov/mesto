@@ -114,15 +114,20 @@ closePopUpNewCardButton.addEventListener('click', popUpNewCardClose);
 function formSubmitNewCardHandler(evt) {
   evt.preventDefault();
   addCard(titleInput.value, imageInput.value);
+  let likeButton = document.querySelector('.element__like');
+  console.log(likeButton);
+  likeButton.addEventListener('click', function (el) {
+    el.target.classList.toggle('element__like_active');
+  });
   popUpNewCardClose();
 }
 submitNewCardButton.addEventListener('click', formSubmitNewCardHandler);
 
 // скрипт для лайков
-const likeButton = document.querySelectorAll('.element__like');
+let likeButtons = document.querySelectorAll('.element__like');
 
-likeButton.forEach(elem => {
-  elem.addEventListener('click', function(el){
+likeButtons.forEach(elem => {
+  elem.addEventListener('click', function (el) {
     el.target.classList.toggle('element__like_active');
   });
 });
