@@ -1,37 +1,3 @@
-// формирование переменных
-let openButton = document.querySelector('.profile__edit-button');
-let closeButton = document.querySelector('.pop-up__button-close');
-let nameProfile = document.querySelector('.profile__title');
-let jobProfile = document.querySelector('.profile__subtitle');
-let popUp = document.querySelector('.pop-up');
-let nameInput = document.querySelector('.pop-up__field:first-of-type');
-let jobInput = document.querySelector('.pop-up__field:last-of-type');
-let formElement = document.querySelector('.pop-up__form');
-let submitButton = document.querySelector('.pop-up__button-submit');
-
-// скрипт для открытия pop-up и заполнения полей формы текущим значением
-function popUpOpen() {
-  nameInput.value = nameProfile.textContent;
-  jobInput.value = jobProfile.textContent;
-  popUp.classList.add('pop-up_opened');
-}
-openButton.addEventListener('click', popUpOpen);
-
-// скрипт для закртыия pop-up
-function popUpClose() {
-  popUp.classList.remove('pop-up_opened');
-}
-closeButton.addEventListener('click', popUpClose);
-
-// скрипт для заполнения формы
-function formSubmitHandler(evt) {
-  evt.preventDefault();
-  nameProfile.textContent = nameInput.value;
-  jobProfile.textContent = jobInput.value;
-  popUpClose();
-}
-submitButton.addEventListener('click', formSubmitHandler);
-
 //скрипт для вывода 6 предустановленных карточек
 const initialCards = [
   {
@@ -76,3 +42,68 @@ function addArrCards(arr) {
 };
 
 document.addEventListener('DOMContentLoaded', addArrCards(initialCards));
+
+// формирование переменных для pop-up
+const openProfileButton = document.querySelector('.profile__edit-button');
+const openNewCardButton = document.querySelector('.profile__add-button');
+const nameProfile = document.querySelector('.profile__title');
+const jobProfile = document.querySelector('.profile__subtitle');
+const popUpProfile = document.querySelectorAll('.pop-up')[0];
+const closeProfileButton = popUpProfile.querySelector('.pop-up__button-close');
+const nameInput = popUpProfile.querySelector('.pop-up__field:first-of-type');
+const jobInput = popUpProfile.querySelector('.pop-up__field:last-of-type');
+const formProfileElement = popUpProfile.querySelector('.pop-up__form');
+const submitProfileButton = popUpProfile.querySelector('.pop-up__button-submit');
+const popUpNewCard = document.querySelectorAll('.pop-up')[1];
+const closePopUpNewCardButton = popUpNewCard.querySelector('.pop-up__button-close');
+const titleInput = popUpNewCard.querySelector('.pop-up__field:first-of-type');
+const imageInput = popUpNewCard.querySelector('.pop-up__field:last-of-type');
+const formNewCardElement = popUpNewCard.querySelector('.pop-up__form');
+const submitNewCardButton = popUpNewCard.querySelector('.pop-up__button-submit');
+
+// скрипт для открытия pop-up Profile и заполнения полей формы текущим значением
+function popUpOpen(popUp) {
+  popUp.classList.add('pop-up_opened');
+}
+
+function popUpProfileOpen() {
+  popUpOpen(popUpProfile);
+  nameInput.value = nameProfile.textContent;
+  jobInput.value = jobProfile.textContent;
+}
+
+openProfileButton.addEventListener('click', popUpProfileOpen);
+
+// скрипт для закртыия pop-up Profile
+function popUpClose(popUp) {
+  popUp.classList.remove('pop-up_opened');
+}
+
+function popUpProfileClose() {
+  popUpClose(popUpProfile);
+}
+closeProfileButton.addEventListener('click', popUpProfileClose);
+
+// скрипт для заполнения формы pop-up Profile
+function formSubmitHandler(evt) {
+  evt.preventDefault();
+  nameProfile.textContent = nameInput.value;
+  jobProfile.textContent = jobInput.value;
+  popUpProfileClose();
+}
+submitProfileButton.addEventListener('click', formSubmitHandler);
+
+// скрипт для открытия pop-up NewCard
+
+function popUpNewCardOpen() {
+  popUpOpen(popUpNewCard);
+}
+
+openNewCardButton.addEventListener('click', popUpNewCardOpen);
+
+// скрипт для закртыия pop-up NewCard
+
+function popUpNewCardClose() {
+  popUpClose(popUpNewCard);
+}
+closePopUpNewCardButton.addEventListener('click', popUpNewCardClose);
