@@ -115,7 +115,6 @@ function formSubmitNewCardHandler(evt) {
   evt.preventDefault();
   addCard(titleInput.value, imageInput.value);
   let likeButton = document.querySelector('.element__like');
-  console.log(likeButton);
   likeButton.addEventListener('click', function (el) {
     el.target.classList.toggle('element__like_active');
   });
@@ -129,5 +128,16 @@ let likeButtons = document.querySelectorAll('.element__like');
 likeButtons.forEach(elem => {
   elem.addEventListener('click', function (el) {
     el.target.classList.toggle('element__like_active');
+  });
+});
+
+// скрипт для корзины
+let binButtons = document.querySelectorAll('.element__bin-button');
+
+binButtons.forEach(elem => {
+  elem.addEventListener('click', function (el) {
+    const item = el.target;
+    console.log(item);
+    item.parentElement.remove();
   });
 });
