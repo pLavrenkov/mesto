@@ -62,11 +62,11 @@ const formNewCardElement = popUpNewCard.querySelector('.pop-up__form');
 const submitNewCardButton = popUpNewCard.querySelector('.pop-up__button-submit');
 const bodyItem = document.querySelector('.body');
 
-function bodyOverflowHidden () {
+function bodyOverflowHidden() {
   bodyItem.classList.add('body_hidden');
 }
 
-function bodyOverflowNone () {
+function bodyOverflowNone() {
   bodyItem.classList.remove('body_hidden');
 }
 
@@ -134,6 +134,14 @@ function formSubmitNewCardHandler(evt) {
     const item = el.target;
     item.parentElement.remove();
   });
+  const imageButton = document.querySelector('.element__photo');
+  imageButton.addEventListener('click', function(el) {
+    const item = el.target;
+    imagePopUpPhoto.src = takeImage(item);
+    imagePopUpCaption.textContent = takeTitle(item);
+    imagePopUpOpen();
+    bodyOverflowHidden();
+  })
   popUpNewCardClose();
 }
 submitNewCardButton.addEventListener('click', formSubmitNewCardHandler);
@@ -183,7 +191,6 @@ imagesToOpen.forEach(elem => {
     imagePopUpCaption.textContent = takeTitle(item);
     imagePopUpOpen();
     bodyOverflowHidden();
-
   })
 })
 
