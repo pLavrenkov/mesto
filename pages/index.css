@@ -4,6 +4,7 @@
 
 /* общие блоки страницы */
 @import url(../bloks/body/body.css);
+@import url(../bloks/body/_hidden/body_hidden.css);
 @import url(../bloks/mainpage/mainpage.css);
 @import url(../bloks/content/content.css);
 
@@ -49,6 +50,7 @@
 
 /* секция image-pop-up */
 @import url(../bloks/image-pop-up/image-pop-up.css);
+@import url(../bloks/image-pop-up/_opened/image-pop-up_opened.css);
 @import url(../bloks/image-pop-up/__container/image-pop-up__container.css);
 @import url(../bloks/image-pop-up/__close-button/image-pop-up__close-button.css);
 @import url(../bloks/image-pop-up/__picture/image-pop-up__picture.css);

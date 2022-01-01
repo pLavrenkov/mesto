@@ -4,12 +4,10 @@
   grid-column: 2/3;
   grid-row: 2/3;
   margin: 0;
-  margin-inline: 0;
 }
 
 @media screen and (max-width: 767px) {
   .image-pop-up__picture {
     grid-column: 1/2;
   }
-
 }
