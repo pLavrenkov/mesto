@@ -46,3 +46,11 @@
 @import url(../bloks/pop-up/__title/pop-up__title.css);
 @import url(../bloks/pop-up/__field/pop-up__field.css);
 @import url(../bloks/pop-up/__button-submit/pop-up__button-submit.css);
+
+/* секция image-pop-up */
+@import url(../bloks/image-pop-up/image-pop-up.css);
+@import url(../bloks/image-pop-up/__container/image-pop-up__container.css);
+@import url(../bloks/image-pop-up/__close-button/image-pop-up__close-button.css);
+@import url(../bloks/image-pop-up/__picture/image-pop-up__picture.css);
+@import url(../bloks/image-pop-up/__photo/image-pop-up__photo.css);
+@import url(../bloks/image-pop-up/__caption/image-pop-up__caption.css);
