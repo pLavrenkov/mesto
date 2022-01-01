@@ -18,3 +18,8 @@
   opacity: 50%;
   transition: .5s ease-out;
 }
+
+.element__like:active {
+  transform: scale(1.5, 1.5);
+  background-image: url(../../../images/Vector-filled.svg);
+}

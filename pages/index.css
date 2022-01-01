@@ -40,6 +40,7 @@
 /* секция pop-up */
 @import url(../bloks/pop-up/pop-up.css);
 @import url(../bloks/pop-up/_opened/pop-up_opened.css);
+@import url(../bloks/pop-up/_closed/pop-up_closed.css);
 @import url(../bloks/pop-up/__container/pop-up__container.css);
 @import url(../bloks/pop-up/__button-close/pop-up__button-close.css);
 @import url(../bloks/pop-up/__form/pop-up__form.css);
@@ -50,6 +51,7 @@
 /* секция image-pop-up */
 @import url(../bloks/image-pop-up/image-pop-up.css);
 @import url(../bloks/image-pop-up/_opened/image-pop-up_opened.css);
+@import url(../bloks/image-pop-up/_closed/image-pop-up_closed.css);
 @import url(../bloks/image-pop-up/__container/image-pop-up__container.css);
 @import url(../bloks/image-pop-up/__close-button/image-pop-up__close-button.css);
 @import url(../bloks/image-pop-up/__picture/image-pop-up__picture.css);

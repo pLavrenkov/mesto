@@ -64,6 +64,7 @@ const submitNewCardButton = popUpNewCard.querySelector('.pop-up__button-submit')
 // скрипт для открытия pop-up Profile и заполнения полей формы текущим значением
 function popUpOpen(popUp) {
   popUp.classList.add('pop-up_opened');
+  popUp.classList.remove('pop-up_closed');
 }
 
 function popUpProfileOpen() {
@@ -77,6 +78,7 @@ openProfileButton.addEventListener('click', popUpProfileOpen);
 // скрипт для закртыия pop-up Profile
 function popUpClose(popUp) {
   popUp.classList.remove('pop-up_opened');
+  popUp.classList.add('pop-up_closed');
 }
 
 function popUpProfileClose() {
@@ -161,6 +163,7 @@ const imagePopUpCaption = imagePopUp.querySelector('.image-pop-up__caption');
 
 function imagePopUpOpen() {
   imagePopUp.classList.add('image-pop-up_opened');
+  imagePopUp.classList.remove('image-pop-up_closed');
 }
 
 function takeImage(item) {
@@ -185,4 +188,5 @@ imagesToOpen.forEach(elem => {
 const imagePopUpButtonClose = document.querySelector('.image-pop-up__close-button');
 imagePopUpButtonClose.addEventListener('click', function () {
   imagePopUp.classList.remove('image-pop-up_opened');
+  imagePopUp.classList.add('image-pop-up_closed');
 });
