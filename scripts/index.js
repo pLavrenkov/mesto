@@ -126,7 +126,7 @@ function formSubmitNewCardHandler(evt) {
     item.parentElement.remove();
   });
   const imageButton = document.querySelector('.element__photo');
-  imageButton.addEventListener('click', function(el) {
+  imageButton.addEventListener('click', function (el) {
     const item = el.target;
     imagePopUpPhoto.src = takeImage(item);
     imagePopUpCaption.textContent = takeTitle(item);
@@ -137,7 +137,7 @@ function formSubmitNewCardHandler(evt) {
 submitNewCardButton.addEventListener('click', formSubmitNewCardHandler);
 
 // скрипт для лайков
-let likeButtons = document.querySelectorAll('.element__like');
+const likeButtons = document.querySelectorAll('.element__like');
 
 likeButtons.forEach(elem => {
   elem.addEventListener('click', function (el) {
@@ -146,7 +146,7 @@ likeButtons.forEach(elem => {
 });
 
 // скрипт для корзины
-let binButtons = document.querySelectorAll('.element__bin-button');
+const binButtons = document.querySelectorAll('.element__bin-button');
 
 binButtons.forEach(elem => {
   elem.addEventListener('click', function (el) {
