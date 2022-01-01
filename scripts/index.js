@@ -114,10 +114,16 @@ closePopUpNewCardButton.addEventListener('click', popUpNewCardClose);
 function formSubmitNewCardHandler(evt) {
   evt.preventDefault();
   addCard(titleInput.value, imageInput.value);
-  let likeButton = document.querySelector('.element__like');
+  const likeButton = document.querySelector('.element__like');
   likeButton.addEventListener('click', function (el) {
     el.target.classList.toggle('element__like_active');
   });
+  const binButton = document.querySelector('.element__bin-button');
+  binButton.addEventListener('click', function (el) {
+    const item = el.target;
+    item.parentElement.remove();
+  });
+
   popUpNewCardClose();
 }
 submitNewCardButton.addEventListener('click', formSubmitNewCardHandler);
@@ -137,7 +143,6 @@ let binButtons = document.querySelectorAll('.element__bin-button');
 binButtons.forEach(elem => {
   elem.addEventListener('click', function (el) {
     const item = el.target;
-    console.log(item);
     item.parentElement.remove();
   });
 });
