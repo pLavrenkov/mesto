@@ -60,20 +60,10 @@ const titleInput = popUpNewCard.querySelector('.pop-up__field:first-of-type');
 const imageInput = popUpNewCard.querySelector('.pop-up__field:last-of-type');
 const formNewCardElement = popUpNewCard.querySelector('.pop-up__form');
 const submitNewCardButton = popUpNewCard.querySelector('.pop-up__button-submit');
-const bodyItem = document.querySelector('.body');
-
-function bodyOverflowHidden() {
-  bodyItem.classList.add('body_hidden');
-}
-
-function bodyOverflowNone() {
-  bodyItem.classList.remove('body_hidden');
-}
 
 // скрипт для открытия pop-up Profile и заполнения полей формы текущим значением
 function popUpOpen(popUp) {
   popUp.classList.add('pop-up_opened');
-  bodyOverflowHidden();
 }
 
 function popUpProfileOpen() {
@@ -87,7 +77,6 @@ openProfileButton.addEventListener('click', popUpProfileOpen);
 // скрипт для закртыия pop-up Profile
 function popUpClose(popUp) {
   popUp.classList.remove('pop-up_opened');
-  bodyOverflowNone();
 }
 
 function popUpProfileClose() {
@@ -140,7 +129,6 @@ function formSubmitNewCardHandler(evt) {
     imagePopUpPhoto.src = takeImage(item);
     imagePopUpCaption.textContent = takeTitle(item);
     imagePopUpOpen();
-    bodyOverflowHidden();
   })
   popUpNewCardClose();
 }
@@ -190,7 +178,6 @@ imagesToOpen.forEach(elem => {
     imagePopUpPhoto.src = takeImage(item);
     imagePopUpCaption.textContent = takeTitle(item);
     imagePopUpOpen();
-    bodyOverflowHidden();
   })
 })
 
@@ -198,5 +185,4 @@ imagesToOpen.forEach(elem => {
 const imagePopUpButtonClose = document.querySelector('.image-pop-up__close-button');
 imagePopUpButtonClose.addEventListener('click', function () {
   imagePopUp.classList.remove('image-pop-up_opened');
-  bodyOverflowNone();
 });
