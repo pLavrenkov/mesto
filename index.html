@@ -45,29 +45,29 @@
       <button type="button" class="element__bin-button"></button>
     </li>
   </template>
-  <section class="pop-up">
+  <section class="pop-up" id="pop-up-profile">
     <div class="pop-up__container">
       <button type="button" class="pop-up__button-close"></button>
       <form class="pop-up-form" name="profile-form">
         <h2 class="pop-up-form__title">Редактировать профиль</h2>
-        <input type="text" class="pop-up-form__field" placeholder="Введите имя" value="1">
-        <input type="text" class="pop-up-form__field" placeholder="Введите занятие">
+        <input type="text" class="pop-up-form__field" placeholder="Введите имя" id="pop-up-form-profile-title">
+        <input type="text" class="pop-up-form__field" placeholder="Введите занятие" id="pop-up-form-profile-added-info">
         <button type="submit" class="pop-up-form__button-submit">Сохранить</button>
       </form>
     </div>
   </section>
-  <section class="pop-up">
+  <section class="pop-up" id="pop-up-add-new-card">
     <div class="pop-up__container">
       <button type="button" class="pop-up__button-close"></button>
       <form class="pop-up-form" name="newcard-form">
         <h2 class="pop-up-form__title">Новое место</h2>
-        <input type="text" class="pop-up-form__field" placeholder="Название">
-        <input type="url" class="pop-up-form__field" placeholder="Ссылка на картинку">
+        <input type="text" class="pop-up-form__field" placeholder="Название" id="pop-up-form-new-card-title">
+        <input type="url" class="pop-up-form__field" placeholder="Ссылка на картинку" id="pop-up-form-new-card-added-info">
         <button type="submit" class="pop-up-form__button-submit">Сохранить</button>
       </form>
     </div>
   </section>
-  <section class="pop-up">
+  <section class="pop-up" id="pop-up-image-view">
     <div class="pop-up__container">
       <button type="button" class="pop-up__button-close"></button>
       <figure class="pop-up-picture">
