@@ -49,10 +49,6 @@ function renderCard(massive, container) {
   const card = createCard(massive);
   container.prepend(card);
 }
-const cards = {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  }
 
 function addArrCards(arr) {
   arr.forEach(el => {
@@ -115,13 +111,10 @@ closePopUpNewCardButton.addEventListener('click', popUpNewCardClose);
 // скрипт для добавления новой карточки
 function formSubmitNewCardHandler(evt) {
   evt.preventDefault();
-  const arr = {
-    name: '...',
-    link: '...'
-  }
-  arr.name = titleInput;
-  arr.link = imageInput;
-  renderCard(titleInput.value, imageInput.value);
+  const arr = {}
+  arr.name = titleInput.value;
+  arr.link = imageInput.value;
+  renderCard(arr, cardsElementList);
   popUpNewCardClose();
 }
 submitNewCardButton.addEventListener('click', formSubmitNewCardHandler);
