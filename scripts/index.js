@@ -64,7 +64,6 @@ const submitNewCardButton = popUpNewCard.querySelector('.pop-up__button-submit')
 // скрипт для открытия pop-up Profile и заполнения полей формы текущим значением
 function popUpOpen(popUp) {
   popUp.classList.add('pop-up_opened');
-  popUp.classList.remove('pop-up_closed');
 }
 
 function popUpProfileOpen() {
@@ -78,7 +77,6 @@ openProfileButton.addEventListener('click', popUpProfileOpen);
 // скрипт для закртыия pop-up Profile
 function popUpClose(popUp) {
   popUp.classList.remove('pop-up_opened');
-  popUp.classList.add('pop-up_closed');
 }
 
 function popUpProfileClose() {

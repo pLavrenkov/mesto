@@ -40,7 +40,6 @@
 /* секция pop-up */
 @import url(../bloks/pop-up/pop-up.css);
 @import url(../bloks/pop-up/_opened/pop-up_opened.css);
-@import url(../bloks/pop-up/_closed/pop-up_closed.css);
 @import url(../bloks/pop-up/__container/pop-up__container.css);
 @import url(../bloks/pop-up/__button-close/pop-up__button-close.css);
 @import url(../bloks/pop-up/__form/pop-up__form.css);
