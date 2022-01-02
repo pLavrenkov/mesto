@@ -26,7 +26,7 @@ const initialCards = [
   }
 ];
 
-function addCard() {
+function createCard() {
   const cardElementTemplate = document.querySelector('#card-element').content;
   const cardElement = cardElementTemplate.querySelector('.element').cloneNode(true);
   const likeButton = cardElement.querySelector('.element__like');
@@ -50,7 +50,7 @@ function addCard() {
 
 function renderCard(title, image) {
   const cardsElementList = document.querySelector('.element-list');
-  const cardElement = addCard();
+  const cardElement = createCard();
   cardElement.querySelector('.element__title').textContent = title;
   cardElement.querySelector('.element__photo').src = image;
   cardElement.querySelector('.element__photo').alt = `Фотоизображение ${title}`;
