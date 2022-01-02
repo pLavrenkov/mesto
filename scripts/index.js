@@ -50,16 +50,18 @@ const nameProfile = document.querySelector('.profile__title');
 const jobProfile = document.querySelector('.profile__subtitle');
 const popUpProfile = document.querySelectorAll('.pop-up')[0];
 const closeProfileButton = popUpProfile.querySelector('.pop-up__button-close');
-const nameInput = popUpProfile.querySelector('.pop-up__field:first-of-type');
-const jobInput = popUpProfile.querySelector('.pop-up__field:last-of-type');
-const formProfileElement = popUpProfile.querySelector('.pop-up__form');
-const submitProfileButton = popUpProfile.querySelector('.pop-up__button-submit');
+const nameInput = popUpProfile.querySelector('.pop-up-form__field:first-of-type');
+const jobInput = popUpProfile.querySelector('.pop-up-form__field:last-of-type');
+const formProfileElement = popUpProfile.querySelector('.pop-up-form');
+const submitProfileButton = popUpProfile.querySelector('.pop-up-form__button-submit');
 const popUpNewCard = document.querySelectorAll('.pop-up')[1];
 const closePopUpNewCardButton = popUpNewCard.querySelector('.pop-up__button-close');
-const titleInput = popUpNewCard.querySelector('.pop-up__field:first-of-type');
-const imageInput = popUpNewCard.querySelector('.pop-up__field:last-of-type');
-const formNewCardElement = popUpNewCard.querySelector('.pop-up__form');
-const submitNewCardButton = popUpNewCard.querySelector('.pop-up__button-submit');
+const titleInput = popUpNewCard.querySelector('.pop-up-form__field:first-of-type');
+const imageInput = popUpNewCard.querySelector('.pop-up-form__field:last-of-type');
+const formNewCardElement = popUpNewCard.querySelector('.pop-up-form');
+const submitNewCardButton = popUpNewCard.querySelector('.pop-up-form__button-submit');
+const popUpPicture = document.querySelectorAll('.pop-up')[2];
+const closePopUpPicture = popUpPicture.querySelector('.pop-up__button-close');
 
 // скрипт для открытия pop-up Profile и заполнения полей формы текущим значением
 function popUpOpen(popUp) {
@@ -156,12 +158,11 @@ binButtons.forEach(elem => {
 // скрипт открыть image pop-up
 const imagesToOpen = document.querySelectorAll('.element__photo');
 const imagePopUp = document.querySelector('.image-pop-up');
-const imagePopUpPhoto = imagePopUp.querySelector('.image-pop-up__photo');
-const imagePopUpCaption = imagePopUp.querySelector('.image-pop-up__caption');
+const imagePopUpPhoto = popUpPicture.querySelector('.pop-up-picture__photo');
+const imagePopUpCaption = popUpPicture.querySelector('.pop-up-picture__caption');
 
 function imagePopUpOpen() {
-  imagePopUp.classList.add('image-pop-up_opened');
-  imagePopUp.classList.remove('image-pop-up_closed');
+  popUpPicture.classList.add('pop-up_opened');
 }
 
 function takeImage(item) {
@@ -183,8 +184,6 @@ imagesToOpen.forEach(elem => {
 })
 
 // скрипт закрыть image pop-up
-const imagePopUpButtonClose = document.querySelector('.image-pop-up__close-button');
-imagePopUpButtonClose.addEventListener('click', function () {
-  imagePopUp.classList.remove('image-pop-up_opened');
-  imagePopUp.classList.add('image-pop-up_closed');
+closePopUpPicture.addEventListener('click', function () {
+  popUpPicture.classList.remove('pop-up_opened');
 });

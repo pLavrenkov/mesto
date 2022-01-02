@@ -1,4 +1,4 @@
-.image-pop-up__caption {
+.pop-up-picture__caption {
   color: #fff;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-size: 12px;
@@ -12,7 +12,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .image-pop-up__caption {
+  .pop-up-picture__caption {
     max-width: 240px;
   }
 }

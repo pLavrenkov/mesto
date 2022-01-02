@@ -1,4 +1,4 @@
-.image-pop-up__picture {
+.pop-up-picture {
   max-width: 75vw;
   max-height: 75vh;
   grid-column: 2/3;
@@ -7,7 +7,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .image-pop-up__picture {
+  .pop-up-picture {
     grid-column: 1/2;
   }
 }
