@@ -18,12 +18,14 @@ const popUpPicture = document.querySelectorAll('.pop-up')[2];
 const closePopUpPicture = popUpPicture.querySelector('.pop-up__button-close');
 
 // скрипт для создания карточек
-function createCard(name, link) {
+function createCard(massive) {
   const cardElementTemplate = document.querySelector('#card-element').content;
   const cardElement = cardElementTemplate.querySelector('.element').cloneNode(true);
-  cardElement.querySelector('.element__title').textContent = name;
-  cardElement.querySelector('.element__photo').src = link;
-  cardElement.querySelector('.element__photo').alt = `Фотоизображение ${name}`;
+  const title = massive.name;
+  const image = massive.link;
+  cardElement.querySelector('.element__title').textContent = title;
+  cardElement.querySelector('.element__photo').src = image;
+  cardElement.querySelector('.element__photo').alt = `Фотоизображение: ${title}`;
   const likeButton = cardElement.querySelector('.element__like');
   likeButton.addEventListener('click', function () {
     likeButton.classList.toggle('element__like_active');
@@ -43,9 +45,9 @@ function createCard(name, link) {
   return cardElement;
 }
 
-function renderCard(name, link) {
-  const card = createCard(name, link);
-  cardsElementList.prepend(card);
+function renderCard(massive, container) {
+  const card = createCard(massive);
+  container.prepend(card);
 }
 const cards = {
     name: 'Архыз',
@@ -54,7 +56,7 @@ const cards = {
 
 function addArrCards(arr) {
   arr.forEach(el => {
-    renderCard(el.name, el.link);
+    renderCard(el, cardsElementList);
   });
 }
 
