@@ -18,16 +18,18 @@ const popUpPicture = document.querySelector('#pop-up-image-view');
 const closePopUpPicture = popUpPicture.querySelector('.pop-up__button-close');
 const imagePopUpPhoto = popUpPicture.querySelector('.pop-up-picture__photo');
 const imagePopUpCaption = popUpPicture.querySelector('.pop-up-picture__caption');
+const formNewCard = popUpNewCard.querySelector('.pop-up-form');
 
 // скрипт для создания карточек
-function createCard(massive) {
+function createCard(cardObject) {
   const cardElementTemplate = document.querySelector('#card-element').content;
   const cardElement = cardElementTemplate.querySelector('.element').cloneNode(true);
-  const title = massive.name;
-  const image = massive.link;
+  const imageButton = cardElement.querySelector('.element__photo');
+  const title = cardObject.name;
+  const image = cardObject.link;
   cardElement.querySelector('.element__title').textContent = title;
-  cardElement.querySelector('.element__photo').src = image;
-  cardElement.querySelector('.element__photo').alt = `Фотоизображение: ${title}`;
+  imageButton.src = image;
+  imageButton.alt = `Фотоизображение: ${title}`;
   const likeButton = cardElement.querySelector('.element__like');
   likeButton.addEventListener('click', function () {
     likeButton.classList.toggle('element__like_active');
@@ -37,10 +39,9 @@ function createCard(massive) {
     const item = event.target;
     item.parentElement.remove();
   });
-  const imageButton = cardElement.querySelector('.element__photo');
   imageButton.addEventListener('click', function () {
     imagePopUpPhoto.src = imageButton.src;
-    imagePopUpCaption.textContent = imageButton.nextElementSibling.textContent;
+    imagePopUpCaption.textContent = cardObject.name;
     imageButton.alt = `Фотоизображение: ${imagePopUpCaption.textContent}`;
     popUpOpen(popUpPicture);
   });
@@ -95,8 +96,7 @@ submitProfileButton.addEventListener('click', handleSubmitProfileForm);
 // скрипт для открытия pop-up NewCard
 function openPopUpNewCard() {
   popUpOpen(popUpNewCard);
-  const form = popUpNewCard.querySelector('.pop-up-form');
-  form.reset();
+  formNewCard.reset();
 }
 
 openNewCardButton.addEventListener('click', openPopUpNewCard);
@@ -110,10 +110,11 @@ closePopUpNewCardButton.addEventListener('click', closePopUpNewCard);
 // скрипт для добавления новой карточки
 function handleSubmitNewCardForm(evt) {
   evt.preventDefault();
-  const arr = {}
-  arr.name = titleInput.value;
-  arr.link = imageInput.value;
-  renderCard(arr, cardsElementList);
+  const data = {
+    name: titleInput.value,
+    link: imageInput.value
+  }
+  renderCard(data, cardsElementList);
   closePopUpNewCard();
 }
 submitNewCardButton.addEventListener('click', handleSubmitNewCardForm);
