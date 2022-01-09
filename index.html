@@ -50,10 +50,10 @@
       <button type="button" class="pop-up__button-close"></button>
       <form class="pop-up-form" name="profile-form" novalidate>
         <h2 class="pop-up-form__title">Редактировать профиль</h2>
-        <input type="text" class="pop-up-form__field" placeholder="Введите имя" id="pop-up-form-profile-title" required minlength="2" maxlength="40">
-        <span class="pop-up-form__input-error pop-up-form-profile-title-error">Ошибка</span>
-        <input type="text" class="pop-up-form__field" placeholder="Введите занятие" id="pop-up-form-profile-added-info" required minlength="2" maxlength="200">
-        <span class="pop-up-form__input-error pop-up-form-profile-added-info-error">Ошибка</span>
+        <input type="text" class="pop-up-form__field" placeholder="Введите имя" id="pop-up-form-profile-title" required minlength="2" maxlength="40" autocomplete="name">
+        <span class="pop-up-form__input-error pop-up-form-profile-title-error"></span>
+        <input type="text" class="pop-up-form__field" placeholder="Введите занятие" id="pop-up-form-profile-added-info" required minlength="2" maxlength="200" autocomplete="off">
+        <span class="pop-up-form__input-error pop-up-form-profile-added-info-error"></span>
         <button type="submit" class="pop-up-form__button-submit">Сохранить</button>
       </form>
     </div>
@@ -63,10 +63,10 @@
       <button type="button" class="pop-up__button-close"></button>
       <form class="pop-up-form" name="newcard-form" novalidate>
         <h2 class="pop-up-form__title">Новое место</h2>
-        <input type="text" class="pop-up-form__field" placeholder="Название" id="pop-up-form-new-card-title" required minlength="2" maxlength="30">
-        <span class="pop-up-form__input-error pop-up-form-new-card-title-error">Ошибка</span>
-        <input type="url" class="pop-up-form__field" placeholder="Ссылка на картинку" id="pop-up-form-new-card-added-info" required>
-        <span class="pop-up-form__input-error pop-up-form-new-card-added-info-error">Ошибка</span>
+        <input type="text" class="pop-up-form__field" placeholder="Название" id="pop-up-form-new-card-title" required minlength="2" maxlength="30" autocomplete="off">
+        <span class="pop-up-form__input-error pop-up-form-new-card-title-error"></span>
+        <input type="url" class="pop-up-form__field" placeholder="Ссылка на картинку" id="pop-up-form-new-card-added-info" required autocomplete="url">
+        <span class="pop-up-form__input-error pop-up-form-new-card-added-info-error"></span>
         <button type="submit" class="pop-up-form__button-submit">Сохранить</button>
       </form>
     </div>

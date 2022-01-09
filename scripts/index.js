@@ -64,6 +64,9 @@ addArrCards(initialCards);
 // скрипт для открытия pop-up Profile и заполнения полей формы текущим значением
 function popUpOpen(popUp) {
   popUp.classList.add('pop-up_opened');
+  const elementButton = popUp.querySelector('.pop-up-form__button-submit');
+  elementButton.classList.add('pop-up-form__button-submit_disabled');
+  elementButton.setAttribute('disabled', true);
 }
 
 function popUpProfileOpen() {

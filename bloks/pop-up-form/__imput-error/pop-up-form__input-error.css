@@ -3,4 +3,5 @@
   color: #f00;
   margin: 5px 0 13px;
   opacity: 0;
+  min-height: 12px;
 }

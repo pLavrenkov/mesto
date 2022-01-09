@@ -1,8 +1,3 @@
-//const formElement = document.querySelector('[name="profile-form"]');
-//const inputElement = document.querySelector('#pop-up-form-profile-title');
-
-//const errorMessage = inputElement.validationMessage;
-
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add('pop-up-form__field_type_error');
@@ -25,17 +20,35 @@ const checkImputValidity = (formElement, inputElement) => {
   }
 };
 
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+};
+
+const toggleButtonState = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('pop-up-form__button-submit_disabled');
+    buttonElement.setAttribute('disabled', true);
+  } else {
+    buttonElement.classList.remove('pop-up-form__button-submit_disabled');
+    buttonElement.removeAttribute('disabled');
+  }
+}
+
 const setEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll('.pop-up-form__field'));
+  const buttonElement = formElement.querySelector('.pop-up-form__button-submit');
   inputList.forEach((inputElement) => {
     checkImputValidity(formElement, inputElement);
   });
+  toggleButtonState(inputList, buttonElement);
 };
 
 const enableValidation = () => {
   const formList = Array.from(document.querySelectorAll('.pop-up-form'));
   formList.forEach((formElement) => {
-    formElement.addEventListener('input', function(evt) {
+    formElement.addEventListener('input', function (evt) {
       evt.preventDefault();
       setEventListeners(formElement);
     });
