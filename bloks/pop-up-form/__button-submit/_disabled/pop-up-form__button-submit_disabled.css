@@ -1,3 +1,7 @@
 .pop-up-form__button-submit_disabled {
   opacity: 20%;
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #000;
+  transition: .3s ease-out;
 }

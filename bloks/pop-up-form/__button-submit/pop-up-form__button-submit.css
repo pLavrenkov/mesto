@@ -13,8 +13,11 @@
 }
 
 .pop-up-form__button-submit:hover {
+  color: #fff;
+  background-color: #000;
+  border: none;
   opacity: 80%;
-  transition: .5s ease-out;
+  transition: .3s ease-out;
 }
 
 @media screen and (max-width: 767px) {

@@ -64,11 +64,11 @@ addArrCards(initialCards);
 // скрипт для открытия pop-up Profile и заполнения полей формы текущим значением
 function popUpOpen(popUp) {
   popUp.classList.add('pop-up_opened');
-  if (popUp.classList.contains('.pop-up-form__button-submit')) {
-    const elementButton = popUp.querySelector('.pop-up-form__button-submit');
+  const elementButton = popUp.querySelector('.pop-up-form__button-submit');
+  if (popUp.id === 'pop-up-add-new-card' || popUp.id === 'pop-up-profile') {
     elementButton.classList.add('pop-up-form__button-submit_disabled');
     elementButton.setAttribute('disabled', true);
-  };
+  }
 }
 
 function popUpProfileOpen() {
@@ -141,11 +141,17 @@ closePopUpPicture.addEventListener('click', function () {
   popUpClose(popUpPicture);
 });
 
+// скрипт для закртыия pop up кликом на подложку и через esc
 const setEventPopUpClose = () => {
   const popUpList = Array.from(document.querySelectorAll('.pop-up'));
-  popUpList.forEach((popUp) =>{
-    popUp.addEventListener('click', function(event) {
+  popUpList.forEach((popUp) => {
+    popUp.addEventListener('click', function (event) {
       popUpClose(event.target);
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        popUpClose(popUp);
+      }
     });
   });
 };
