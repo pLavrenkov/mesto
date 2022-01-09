@@ -130,7 +130,7 @@ function handleSubmitNewCardForm(evt) {
   const data = {
     name: titleInput.value,
     link: imageInput.value
-  }
+  };
   renderCard(data, cardsElementList);
   closePopUpNewCard();
 }

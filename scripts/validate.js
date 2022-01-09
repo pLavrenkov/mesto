@@ -34,7 +34,7 @@ const toggleButtonState = (inputList, buttonElement) => {
     buttonElement.classList.remove('pop-up-form__button-submit_disabled');
     buttonElement.removeAttribute('disabled');
   }
-}
+};
 
 const setEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll('.pop-up-form__field'));
