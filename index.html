@@ -48,10 +48,12 @@
   <section class="pop-up" id="pop-up-profile">
     <div class="pop-up__container">
       <button type="button" class="pop-up__button-close"></button>
-      <form class="pop-up-form" name="profile-form">
+      <form class="pop-up-form" name="profile-form" novalidate>
         <h2 class="pop-up-form__title">Редактировать профиль</h2>
-        <input type="text" class="pop-up-form__field" placeholder="Введите имя" id="pop-up-form-profile-title">
-        <input type="text" class="pop-up-form__field" placeholder="Введите занятие" id="pop-up-form-profile-added-info">
+        <input type="text" class="pop-up-form__field" placeholder="Введите имя" id="pop-up-form-profile-title" required minlength="2" maxlength="40">
+        <span class="pop-up-form__imput-error">Ошибка</span>
+        <input type="text" class="pop-up-form__field" placeholder="Введите занятие" id="pop-up-form-profile-added-info" required maxlength="200">
+        <span class="pop-up-form__imput-error">Ошибка</span>
         <button type="submit" class="pop-up-form__button-submit">Сохранить</button>
       </form>
     </div>
@@ -59,10 +61,12 @@
   <section class="pop-up" id="pop-up-add-new-card">
     <div class="pop-up__container">
       <button type="button" class="pop-up__button-close"></button>
-      <form class="pop-up-form" name="newcard-form">
+      <form class="pop-up-form" name="newcard-form" novalidate>
         <h2 class="pop-up-form__title">Новое место</h2>
-        <input type="text" class="pop-up-form__field" placeholder="Название" id="pop-up-form-new-card-title">
-        <input type="url" class="pop-up-form__field" placeholder="Ссылка на картинку" id="pop-up-form-new-card-added-info">
+        <input type="text" class="pop-up-form__field" placeholder="Название" id="pop-up-form-new-card-title" required minlength="2" maxlength="30">
+        <span class="pop-up-form__imput-error">Ошибка</span>
+        <input type="url" class="pop-up-form__field" placeholder="Ссылка на картинку" id="pop-up-form-new-card-added-info" required>
+        <span class="pop-up-form__imput-error">Ошибка</span>
         <button type="submit" class="pop-up-form__button-submit">Сохранить</button>
       </form>
     </div>
