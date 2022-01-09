@@ -64,9 +64,11 @@ addArrCards(initialCards);
 // скрипт для открытия pop-up Profile и заполнения полей формы текущим значением
 function popUpOpen(popUp) {
   popUp.classList.add('pop-up_opened');
-  const elementButton = popUp.querySelector('.pop-up-form__button-submit');
-  elementButton.classList.add('pop-up-form__button-submit_disabled');
-  elementButton.setAttribute('disabled', true);
+  if (popUp.classList.contains('.pop-up-form__button-submit')) {
+    const elementButton = popUp.querySelector('.pop-up-form__button-submit');
+    elementButton.classList.add('pop-up-form__button-submit_disabled');
+    elementButton.setAttribute('disabled', true);
+  };
 }
 
 function popUpProfileOpen() {
@@ -138,3 +140,14 @@ submitNewCardButton.addEventListener('click', handleSubmitNewCardForm);
 closePopUpPicture.addEventListener('click', function () {
   popUpClose(popUpPicture);
 });
+
+const setEventPopUpClose = () => {
+  const popUpList = Array.from(document.querySelectorAll('.pop-up'));
+  popUpList.forEach((popUp) =>{
+    popUp.addEventListener('click', function(event) {
+      popUpClose(event.target);
+    });
+  });
+};
+
+setEventPopUpClose();
