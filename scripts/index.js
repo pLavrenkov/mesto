@@ -76,6 +76,18 @@ openProfileButton.addEventListener('click', popUpProfileOpen);
 
 // скрипт для закртыия pop-up Profile
 function popUpClose(popUp) {
+  const formElementList = Array.from(popUp.querySelectorAll('.pop-up-form__field'));
+  const elementErrorList = Array.from(popUp.querySelectorAll('.pop-up-form__input-error'));
+  formElementList.forEach((formElement) => {
+    if (formElement.classList.contains('pop-up-form__field_type_error')) {
+      formElement.classList.remove('pop-up-form__field_type_error');
+    }
+  });
+  elementErrorList.forEach((elementError) => {
+    if (elementError.classList.contains('pop-up-form__input-error_active')) {
+      elementError.classList.remove('pop-up-form__input-error_active');
+    }
+  });
   popUp.classList.remove('pop-up_opened');
 }
 

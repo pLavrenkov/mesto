@@ -49,7 +49,8 @@
 @import url(../bloks/pop-up-form/__field/pop-up-form__field.css);
 @import url(../bloks/pop-up-form/__button-submit/pop-up-form__button-submit.css);
 @import url(../bloks/pop-up-form/__field/pop-up-form__field.css);
-@import url(../bloks/pop-up-form/__imput-error/pop-up-form__imput-error.css);
+@import url(../bloks/pop-up-form/__field/_type_error/pop-up-form__field_type_error.css);
+@import url(../bloks/pop-up-form/__imput-error/pop-up-form__input-error.css);
 @import url(../bloks/pop-up-form/__imput-error/_active/pop-up-form__input-error_active.css);
 
 /* секция pop-up-picture */
