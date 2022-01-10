@@ -111,7 +111,7 @@ openProfileButton.addEventListener('click', openPopUpProfile);
 // скрипт для закртыия pop-up Profile
 function closePopUp(popUp) {
   popUp.removeEventListener('click', handleClosePopUpByLayout);
-  document.removeEventListener('keydown', handleClosePopUpByEsc);
+  document.removeEventListener('keyup', handleClosePopUpByEsc);
   popUp.classList.remove('pop-up_opened');
 
 }
