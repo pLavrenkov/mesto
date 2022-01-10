@@ -20,6 +20,14 @@
   transition: .3s ease-out;
 }
 
+.pop-up-form__button-submit:disabled {
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #000;
+  opacity: 20%;
+  transition: .3s ease-out;
+}
+
 @media screen and (max-width: 767px) {
   .pop-up-form__button-submit {
     height: 46px;

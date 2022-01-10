@@ -28,10 +28,8 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('pop-up-form__button-submit_disabled');
     buttonElement.setAttribute('disabled', true);
   } else {
-    buttonElement.classList.remove('pop-up-form__button-submit_disabled');
     buttonElement.removeAttribute('disabled');
   }
 };

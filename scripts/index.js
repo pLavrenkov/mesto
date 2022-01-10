@@ -31,25 +31,26 @@ function createCard(cardObject) {
   imageButton.src = image;
   imageButton.alt = `Фотоизображение: ${title}`;
   const likeButton = cardElement.querySelector('.element__like');
-  likeButton.addEventListener('click', function () {
+  const handleLikeButton = () => { //вынести обработчик в глобальную зону не удалось, т.к. кнопка создается внутри функции createCard
     likeButton.classList.toggle('element__like_active');
-  });
+  }
+  likeButton.addEventListener('click', handleLikeButton);
   const binButton = cardElement.querySelector('.element__bin-button');
   binButton.addEventListener('click', function (event) {
     const item = event.target;
-    item.parentElement.remove();
+    item.closest('.element').remove();
   });
   imageButton.addEventListener('click', function () {
     imagePopUpPhoto.src = imageButton.src;
     imagePopUpCaption.textContent = cardObject.name;
-    imageButton.alt = `Фотоизображение: ${imagePopUpCaption.textContent}`;
-    popUpOpen(popUpPicture);
+    imagePopUpPhoto.alt = `Фотоизображение: ${imagePopUpCaption.textContent}`;
+    openPopUp(popUpPicture);
   });
   return cardElement;
 }
 
-function renderCard(massive, container) {
-  const card = createCard(massive);
+function renderCard(array, container) {
+  const card = createCard(array);
   container.prepend(card);
 }
 
@@ -61,26 +62,8 @@ function addArrCards(arr) {
 
 addArrCards(initialCards);
 
-// скрипт для открытия pop-up Profile и заполнения полей формы текущим значением
-function popUpOpen(popUp) {
-  popUp.classList.add('pop-up_opened');
-  const elementButton = popUp.querySelector('.pop-up-form__button-submit');
-  if (popUp.id === 'pop-up-add-new-card' || popUp.id === 'pop-up-profile') {
-    elementButton.classList.add('pop-up-form__button-submit_disabled');
-    elementButton.setAttribute('disabled', true);
-  }
-}
-
-function popUpProfileOpen() {
-  popUpOpen(popUpProfile);
-  nameInput.value = nameProfile.textContent;
-  jobInput.value = jobProfile.textContent;
-}
-
-openProfileButton.addEventListener('click', popUpProfileOpen);
-
-// скрипт для закртыия pop-up Profile
-function popUpClose(popUp) {
+// скрипт для валидации input в формах
+const resetValidation = (popUp) => {
   const formElementList = Array.from(popUp.querySelectorAll('.pop-up-form__field'));
   const elementErrorList = Array.from(popUp.querySelectorAll('.pop-up-form__input-error'));
   formElementList.forEach((formElement) => {
@@ -93,67 +76,93 @@ function popUpClose(popUp) {
       elementError.classList.remove('pop-up-form__input-error_active');
     }
   });
+}
+
+// обработчики событий для закрытия pop up нажатием на overlay и на Escape
+const handleClosePopUpByLayout = (event) => {
+  closePopUp(event.target);
+}
+
+const handleClosePopUpByEsc = (event) => {
+  const popUp = document.querySelector('.pop-up_opened');
+  if (event.key === 'Escape') {
+    closePopUp(popUp);
+  }
+}
+
+// скрипт для открытия pop-up Profile и заполнения полей формы текущим значением
+function openPopUp(popUp) {
+  popUp.classList.add('pop-up_opened');
+  popUp.addEventListener('click', handleClosePopUpByLayout);
+  document.addEventListener('keydown', handleClosePopUpByEsc);
+}
+
+function openPopUpProfile() {
+  openPopUp(popUpProfile);
+  nameInput.value = nameProfile.textContent;
+  jobInput.value = jobProfile.textContent;
+  submitProfileButton.removeAttribute('disabled');
+  resetValidation(popUpProfile);
+}
+
+openProfileButton.addEventListener('click', openPopUpProfile);
+
+// скрипт для закртыия pop-up Profile
+function closePopUp(popUp) {
+  popUp.removeEventListener('click', handleClosePopUpByLayout);
+  document.removeEventListener('keydown', handleClosePopUpByEsc);
   popUp.classList.remove('pop-up_opened');
 }
 
-function popUpProfileClose() {
-  popUpClose(popUpProfile);
+function closePopUpProfile() {
+  closePopUp(popUpProfile);
 }
-closeProfileButton.addEventListener('click', popUpProfileClose);
+closeProfileButton.addEventListener('click', closePopUpProfile);
 
 // скрипт для заполнения формы pop-up Profile
 function handleSubmitProfileForm(evt) {
   evt.preventDefault();
+  //не удалил, т.к. в случае удаления при сабмите страница перезагружается и данные не сохраняются (остается Кусто и Исследователь),
+  //но удалил в обработчике создения новой карточки
+  //предположу, что это связано с заполнением полей в форме данными из профиля, т.к. на другом поп апе работает default от валидации
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
-  popUpProfileClose();
+  closePopUpProfile();
 }
 submitProfileButton.addEventListener('click', handleSubmitProfileForm);
 
 // скрипт для открытия pop-up NewCard
 function openPopUpNewCard() {
-  popUpOpen(popUpNewCard);
-  formNewCard.reset();
+  openPopUp(popUpNewCard);
 }
-
 openNewCardButton.addEventListener('click', openPopUpNewCard);
 
 // скрипт для закртыия pop-up NewCard
 function closePopUpNewCard() {
-  popUpClose(popUpNewCard);
+  closePopUp(popUpNewCard);
 }
 closePopUpNewCardButton.addEventListener('click', closePopUpNewCard);
 
+// скрипт для дизактивации submit на pop up при создании новых карточек
+function disactiveSubmitNewCardButton() {
+  submitNewCardButton.setAttribute('disabled', true);
+}
+disactiveSubmitNewCardButton();
+
 // скрипт для добавления новой карточки
 function handleSubmitNewCardForm(evt) {
-  evt.preventDefault();
+  disactiveSubmitNewCardButton();
   const data = {
     name: titleInput.value,
     link: imageInput.value
   };
   renderCard(data, cardsElementList);
+  formNewCard.reset();
   closePopUpNewCard();
 }
 submitNewCardButton.addEventListener('click', handleSubmitNewCardForm);
 
 //скрипт закрыть pop-up с картинкой
 closePopUpPicture.addEventListener('click', function () {
-  popUpClose(popUpPicture);
+  closePopUp(popUpPicture);
 });
-
-// скрипт для закртыия pop up кликом на подложку и через esc
-const setEventPopUpClose = () => {
-  const popUpList = Array.from(document.querySelectorAll('.pop-up'));
-  popUpList.forEach((popUp) => {
-    popUp.addEventListener('click', function (event) {
-      popUpClose(event.target);
-    });
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape') {
-        popUpClose(popUp);
-      }
-    });
-  });
-};
-
-setEventPopUpClose();
