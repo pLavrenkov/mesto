@@ -103,6 +103,7 @@ function openPopUpProfile() {
   jobInput.value = jobProfile.textContent;
   submitProfileButton.removeAttribute('disabled');
   resetValidation(popUpProfile);
+  enableValidation();
 }
 
 openProfileButton.addEventListener('click', openPopUpProfile);
@@ -112,6 +113,7 @@ function closePopUp(popUp) {
   popUp.removeEventListener('click', handleClosePopUpByLayout);
   document.removeEventListener('keydown', handleClosePopUpByEsc);
   popUp.classList.remove('pop-up_opened');
+
 }
 
 function closePopUpProfile() {
@@ -134,6 +136,7 @@ submitProfileButton.addEventListener('click', handleSubmitProfileForm);
 // скрипт для открытия pop-up NewCard
 function openPopUpNewCard() {
   openPopUp(popUpNewCard);
+  enableValidation();
 }
 openNewCardButton.addEventListener('click', openPopUpNewCard);
 

@@ -52,5 +52,3 @@ const enableValidation = () => {
     });
   });
 };
-
-enableValidation();
