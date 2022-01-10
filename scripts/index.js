@@ -111,13 +111,12 @@ openProfileButton.addEventListener('click', openPopUpProfile);
 // скрипт для закртыия pop-up Profile
 function closePopUp(popUp) {
   popUp.removeEventListener('click', handleClosePopUpByLayout);
-  document.removeEventListener('keyup', handleClosePopUpByEsc);
   popUp.classList.remove('pop-up_opened');
-
 }
 
 function closePopUpProfile() {
   closePopUp(popUpProfile);
+  document.removeEventListener('keydown', handleClosePopUpByEsc);
 }
 closeProfileButton.addEventListener('click', closePopUpProfile);
 
@@ -143,6 +142,7 @@ openNewCardButton.addEventListener('click', openPopUpNewCard);
 // скрипт для закртыия pop-up NewCard
 function closePopUpNewCard() {
   closePopUp(popUpNewCard);
+  document.removeEventListener('keydown', handleClosePopUpByEsc);
 }
 closePopUpNewCardButton.addEventListener('click', closePopUpNewCard);
 
@@ -168,4 +168,5 @@ submitNewCardButton.addEventListener('click', handleSubmitNewCardForm);
 //скрипт закрыть pop-up с картинкой
 closePopUpPicture.addEventListener('click', function () {
   closePopUp(popUpPicture);
+  document.removeEventListener('keydown', handleClosePopUpByEsc);
 });
