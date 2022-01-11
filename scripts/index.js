@@ -19,6 +19,8 @@ const closePopUpPicture = popUpPicture.querySelector('.pop-up__button-close');
 const imagePopUpPhoto = popUpPicture.querySelector('.pop-up-picture__photo');
 const imagePopUpCaption = popUpPicture.querySelector('.pop-up-picture__caption');
 const formNewCard = popUpNewCard.querySelector('.pop-up-form');
+const formElementList = Array.from(popUpProfile.querySelectorAll('.pop-up-form__field'));
+const elementErrorList = Array.from(popUpProfile.querySelectorAll('.pop-up-form__input-error'));
 
 // скрипт для создания карточек
 function createCard(cardObject) {
@@ -31,7 +33,7 @@ function createCard(cardObject) {
   imageButton.src = image;
   imageButton.alt = `Фотоизображение: ${title}`;
   const likeButton = cardElement.querySelector('.element__like');
-  const handleLikeButton = () => { //вынести обработчик в глобальную зону не удалось, т.к. кнопка создается внутри функции createCard
+  const handleLikeButton = () => {
     likeButton.classList.toggle('element__like_active');
   }
   likeButton.addEventListener('click', handleLikeButton);
@@ -63,9 +65,7 @@ function addArrCards(arr) {
 addArrCards(initialCards);
 
 // скрипт для валидации input в формах
-const resetValidation = (popUp) => {
-  const formElementList = Array.from(popUp.querySelectorAll('.pop-up-form__field'));
-  const elementErrorList = Array.from(popUp.querySelectorAll('.pop-up-form__input-error'));
+const resetValidationPopUpProfile = () => {
   formElementList.forEach((formElement) => {
     if (formElement.classList.contains('pop-up-form__field_type_error')) {
       formElement.classList.remove('pop-up-form__field_type_error');
@@ -102,8 +102,7 @@ function openPopUpProfile() {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
   submitProfileButton.removeAttribute('disabled');
-  resetValidation(popUpProfile);
-  enableValidation();
+  resetValidationPopUpProfile();
 }
 
 openProfileButton.addEventListener('click', openPopUpProfile);
@@ -111,21 +110,18 @@ openProfileButton.addEventListener('click', openPopUpProfile);
 // скрипт для закртыия pop-up Profile
 function closePopUp(popUp) {
   popUp.removeEventListener('click', handleClosePopUpByLayout);
+  document.removeEventListener('keyup', handleClosePopUpByEsc);
   popUp.classList.remove('pop-up_opened');
+
 }
 
 function closePopUpProfile() {
   closePopUp(popUpProfile);
-  document.removeEventListener('keydown', handleClosePopUpByEsc);
 }
 closeProfileButton.addEventListener('click', closePopUpProfile);
 
 // скрипт для заполнения формы pop-up Profile
 function handleSubmitProfileForm(evt) {
-  evt.preventDefault();
-  //не удалил, т.к. в случае удаления при сабмите страница перезагружается и данные не сохраняются (остается Кусто и Исследователь),
-  //но удалил в обработчике создения новой карточки
-  //предположу, что это связано с заполнением полей в форме данными из профиля, т.к. на другом поп апе работает default от валидации
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
   closePopUpProfile();
@@ -135,14 +131,12 @@ submitProfileButton.addEventListener('click', handleSubmitProfileForm);
 // скрипт для открытия pop-up NewCard
 function openPopUpNewCard() {
   openPopUp(popUpNewCard);
-  enableValidation();
 }
 openNewCardButton.addEventListener('click', openPopUpNewCard);
 
 // скрипт для закртыия pop-up NewCard
 function closePopUpNewCard() {
   closePopUp(popUpNewCard);
-  document.removeEventListener('keydown', handleClosePopUpByEsc);
 }
 closePopUpNewCardButton.addEventListener('click', closePopUpNewCard);
 
@@ -168,5 +162,4 @@ submitNewCardButton.addEventListener('click', handleSubmitNewCardForm);
 //скрипт закрыть pop-up с картинкой
 closePopUpPicture.addEventListener('click', function () {
   closePopUp(popUpPicture);
-  document.removeEventListener('keydown', handleClosePopUpByEsc);
 });

@@ -46,9 +46,14 @@ const setEventListeners = (formElement) => {
 const enableValidation = () => {
   const formList = Array.from(document.querySelectorAll('.pop-up-form'));
   formList.forEach((formElement) => {
+    formElement.addEventListener('submit', function (evt) {
+      evt.preventDefault();
+    });
     formElement.addEventListener('input', function (evt) {
       evt.preventDefault();
       setEventListeners(formElement);
     });
   });
 };
+
+enableValidation();
