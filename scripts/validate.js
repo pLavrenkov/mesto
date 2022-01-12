@@ -50,7 +50,6 @@ const enableValidation = () => {
       evt.preventDefault();
     });
     formElement.addEventListener('input', function (evt) {
-      evt.preventDefault();
       setEventListeners(formElement);
     });
   });
