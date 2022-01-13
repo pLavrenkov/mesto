@@ -80,13 +80,17 @@ const resetValidationPopUpProfile = () => {
 
 // обработчики событий для закрытия pop up нажатием на overlay и на Escape
 const handleClosePopUpByLayout = (event) => {
-  closePopUp(event.target);
+  const popUp = document.querySelector('.pop-up_opened');
+  if (event.target === popUp) {
+    closePopUp(event.target);
+  }
 }
 
 const handleClosePopUpByEsc = (event) => {
   const popUp = document.querySelector('.pop-up_opened');
   if (event.key === 'Escape') {
     closePopUp(popUp);
+    event.stopPropagation();
   }
 }
 
@@ -95,6 +99,7 @@ function openPopUp(popUp) {
   popUp.classList.add('pop-up_opened');
   popUp.addEventListener('click', handleClosePopUpByLayout);
   document.addEventListener('keydown', handleClosePopUpByEsc);
+
 }
 
 function openPopUpProfile() {
@@ -109,10 +114,9 @@ openProfileButton.addEventListener('click', openPopUpProfile);
 
 // скрипт для закртыия pop-up Profile
 function closePopUp(popUp) {
-  popUp.removeEventListener('click', handleClosePopUpByLayout);
-  document.removeEventListener('keyup', handleClosePopUpByEsc);
   popUp.classList.remove('pop-up_opened');
-
+  popUp.removeEventListener('click', handleClosePopUpByLayout);
+  document.removeEventListener('keydown', handleClosePopUpByEsc);
 }
 
 function closePopUpProfile() {
