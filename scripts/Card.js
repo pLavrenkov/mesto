@@ -20,24 +20,22 @@ class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.element__like').addEventListener('click', this._handleLikeButton);
+    this._element.querySelector('.element__like').addEventListener('click', () => {
+      this._element.querySelector('.element__like').classList.toggle('element__like_active');
+    });
 
     this._element.querySelector('.element__bin-button').addEventListener('click', function (event) {
       const item = event.target;
       item.closest('.element').remove();
     });
 
-    this._element.querySelector('.element__photo').addEventListener('click', function () {
+    this._element.querySelector('.element__photo').addEventListener('click', () => {
       document.querySelector('.pop-up-picture__photo').src = this._image;
       document.querySelector('.pop-up-picture__caption').textContent = this._title;
       document.querySelector('.pop-up-picture__photo').alt = `Фотоизображение: ${this._title}`;
-      openPopUp(popUpPicture);
+      document.querySelector('#pop-up-image-view').classList.add('pop-up_opened');
     });
-  }
-
-  _handleLikeButton() {
-    cardElement.querySelector('.element__like').classList.toggle('element__like_active');
   }
 }
 
-export {Card}
+export { Card }
