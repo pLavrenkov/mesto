@@ -21,9 +21,12 @@ const imagePopUpCaption = popUpPicture.querySelector('.pop-up-picture__caption')
 const formNewCard = popUpNewCard.querySelector('.pop-up-form');
 const formElementList = Array.from(popUpProfile.querySelectorAll('.pop-up-form__field'));
 const elementErrorList = Array.from(popUpProfile.querySelectorAll('.pop-up-form__input-error'));
+const cardSelector = '#card-element';
 
 // скрипт для создания карточек
-function createCard(cardObject) {
+import {Card} from './Card.js';
+
+/*function createCard(cardObject) {
   const cardElementTemplate = document.querySelector('#card-element').content;
   const cardElement = cardElementTemplate.querySelector('.element').cloneNode(true);
   const imageButton = cardElement.querySelector('.element__photo');
@@ -49,11 +52,13 @@ function createCard(cardObject) {
     openPopUp(popUpPicture);
   });
   return cardElement;
-}
+}*/
 
 function renderCard(array, container) {
-  const card = createCard(array);
-  container.prepend(card);
+  const card = new Card(array, cardSelector);
+  console.log(card);
+  const cardElement = card.generateCard();
+  container.prepend(cardElement);
 }
 
 function addArrCards(arr) {

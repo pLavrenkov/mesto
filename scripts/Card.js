@@ -1,4 +1,4 @@
-export class Card {
+class Card {
   constructor(data, cardSelector) {
     this._title = data.name;
     this._image = data.link;
@@ -6,7 +6,7 @@ export class Card {
   }
 
   _getTemplate() {
-    const cardElement = document.querySelector('#card-element').content.querySelector('.element').cloneNode(true);
+    const cardElement = document.querySelector(this._cardSelector).content.querySelector('.element').cloneNode(true);
     return cardElement;
   }
 
@@ -15,22 +15,22 @@ export class Card {
     this._setEventListeners();
     this._element.querySelector('.element__title').textContent = this._title;
     this._element.querySelector('.element__photo').src = this._image;
-    this._element.querySelector('.element__photo').alt = `Фотоизображение: ${title}`;
+    this._element.querySelector('.element__photo').alt = `Фотоизображение: ${this._title}`;
     return this._element;
   }
 
   _setEventListeners() {
-    cardElement.querySelector('.element__like').addEventListener('click', this._handleBinButton);
+    this._element.querySelector('.element__like').addEventListener('click', this._handleLikeButton);
 
-    cardElement.querySelector('.element__bin-button').addEventListener('click', function (event) {
+    this._element.querySelector('.element__bin-button').addEventListener('click', function (event) {
       const item = event.target;
       item.closest('.element').remove();
     });
 
-    cardElement.querySelector('.element__photo').addEventListener('click', function () {
-      imagePopUpPhoto.src = this._image;
-      imagePopUpCaption.textContent = this._title;
-      imagePopUpPhoto.alt = `Фотоизображение: ${imagePopUpCaption.textContent}`;
+    this._element.querySelector('.element__photo').addEventListener('click', function () {
+      document.querySelector('.pop-up-picture__photo').src = this._image;
+      document.querySelector('.pop-up-picture__caption').textContent = this._title;
+      document.querySelector('.pop-up-picture__photo').alt = `Фотоизображение: ${this._title}`;
       openPopUp(popUpPicture);
     });
   }
@@ -38,6 +38,6 @@ export class Card {
   _handleLikeButton() {
     cardElement.querySelector('.element__like').classList.toggle('element__like_active');
   }
-
 }
 
+export {Card}
