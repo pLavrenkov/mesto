@@ -23,8 +23,24 @@ const formElementList = Array.from(popUpProfile.querySelectorAll('.pop-up-form__
 const elementErrorList = Array.from(popUpProfile.querySelectorAll('.pop-up-form__input-error'));
 const cardSelector = '#card-element';
 
+const profileForm = {
+  name: '[name = profile-form]',
+  form: '.pop-up-form',
+  input: '.pop-up-form__field',
+  selector: document.querySelector('[name = "profile-form"]')
+}
+
+const newCardForm = {
+  name: '[name = newcard-form]',
+  form: '.pop-up-form',
+  input: '.pop-up-form__field',
+  selector: document.querySelector('[name = "profile-form"]')
+}
+
+
 // скрипт для создания карточек
 import { Card } from './Card.js';
+import { FormValidation } from './FormValidator.js';
 
 /*function createCard(cardObject) {
   const cardElementTemplate = document.querySelector('#card-element').content;
@@ -82,6 +98,14 @@ function addArrCards(arr) {
 }
 
 addArrCards(initialCards);
+
+const profileValidation = new FormValidation (profileForm, profileForm.selector);
+profileValidation.enableValidation();
+console.log(profileValidation);
+
+const newCardValidation = new FormValidation (newCardForm, newCardForm.selector);
+newCardValidation.enableValidation();
+console.log(newCardValidation);
 
 // скрипт для валидации input в формах
 const resetValidationPopUpProfile = () => {
