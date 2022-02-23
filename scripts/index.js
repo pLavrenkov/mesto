@@ -48,18 +48,6 @@ const newCardForm = {
 import { Card } from './Card.js';
 import { FormValidation } from './FormValidator.js';
 
-// обработчики событий для закрытия pop up нажатием на overlay и на Escape
-const handleClosePopUpByLayout = (event) => {
-  closePopUp(event.target);
-}
-
-const handleClosePopUpByEsc = (event) => {
-  const popUp = document.querySelector('.pop-up_opened');
-  if (event.key === 'Escape') {
-    closePopUp(popUp);
-  }
-}
-
 // обработка массивов с карточками
 function renderCard(array, container) {
   const card = new Card(array, cardSelector);
@@ -99,7 +87,6 @@ const resetValidationPopUpProfile = () => {
   });
 }
 
-<<<<<<< HEAD
 // обработчики событий для закрытия pop up нажатием на overlay и на Escape
 const handleClosePopUpByLayout = (event) => {
   const popUp = document.querySelector('.pop-up_opened');
@@ -116,8 +103,6 @@ const handleClosePopUpByEsc = (event) => {
   }
 }
 
-=======
->>>>>>> develop
 // скрипт для открытия pop-up Profile и заполнения полей формы текущим значением
 function openPopUp(popUp) {
   popUp.classList.add('pop-up_opened');
@@ -138,15 +123,9 @@ openProfileButton.addEventListener('click', openPopUpProfile);
 
 // скрипт для закртыия pop-up Profile
 function closePopUp(popUp) {
-<<<<<<< HEAD
   popUp.classList.remove('pop-up_opened');
   popUp.removeEventListener('click', handleClosePopUpByLayout);
   document.removeEventListener('keydown', handleClosePopUpByEsc);
-=======
-  //popUp.removeEventListener('click', handleClosePopUpByLayout);
-  document.removeEventListener('keyup', handleClosePopUpByEsc);
-  popUp.classList.remove('pop-up_opened');
->>>>>>> develop
 }
 
 function closePopUpProfile() {
