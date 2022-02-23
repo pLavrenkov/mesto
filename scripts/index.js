@@ -1,4 +1,4 @@
-// формирование переменных
+// глобальные переменные
 const cardsElementList = document.querySelector('.element-list');
 const openProfileButton = document.querySelector('.profile__edit-button');
 const openNewCardButton = document.querySelector('.profile__add-button');
@@ -16,17 +16,20 @@ const imageInput = popUpNewCard.querySelector('#pop-up-form-new-card-added-info'
 const submitNewCardButton = popUpNewCard.querySelector('.pop-up-form__button-submit');
 const popUpPicture = document.querySelector('#pop-up-image-view');
 const closePopUpPicture = popUpPicture.querySelector('.pop-up__button-close');
-const imagePopUpPhoto = popUpPicture.querySelector('.pop-up-picture__photo');
-const imagePopUpCaption = popUpPicture.querySelector('.pop-up-picture__caption');
 const formNewCard = popUpNewCard.querySelector('.pop-up-form');
 const formElementList = Array.from(popUpProfile.querySelectorAll('.pop-up-form__field'));
 const elementErrorList = Array.from(popUpProfile.querySelectorAll('.pop-up-form__input-error'));
 const cardSelector = '#card-element';
 
+// объекты PopUp
 const profileForm = {
   name: '[name =" profile-form"]',
   form: '.pop-up-form',
   input: '.pop-up-form__field',
+  error: '.pop-up-form__input-error',
+  error_active: 'pop-up-form__input-error_active',
+  input_error: 'pop-up-form__field_type_error',
+  button: '.pop-up-form__button-submit',
   selector: document.querySelector('[name = "profile-form"]')
 }
 
@@ -34,43 +37,16 @@ const newCardForm = {
   name: '[name = "newcard-form"]',
   form: '.pop-up-form',
   input: '.pop-up-form__field',
+  error: '.pop-up-form__input-error',
+  error_active: 'pop-up-form__input-error_active',
+  input_error: 'pop-up-form__field_type_error',
+  button: '.pop-up-form__button-submit',
   selector: document.querySelector('[name = "newcard-form"]')
 }
-
-console.log(newCardForm.selector);
-
 
 // скрипт для создания карточек
 import { Card } from './Card.js';
 import { FormValidation } from './FormValidator.js';
-
-/*function createCard(cardObject) {
-  const cardElementTemplate = document.querySelector('#card-element').content;
-  const cardElement = cardElementTemplate.querySelector('.element').cloneNode(true);
-  const imageButton = cardElement.querySelector('.element__photo');
-  const title = cardObject.name;
-  const image = cardObject.link;
-  cardElement.querySelector('.element__title').textContent = title;
-  imageButton.src = image;
-  imageButton.alt = `Фотоизображение: ${title}`;
-  const likeButton = cardElement.querySelector('.element__like');
-  const handleLikeButton = () => {
-    likeButton.classList.toggle('element__like_active');
-  }
-  likeButton.addEventListener('click', handleLikeButton);
-  const binButton = cardElement.querySelector('.element__bin-button');
-  binButton.addEventListener('click', function (event) {
-    const item = event.target;
-    item.closest('.element').remove();
-  });
-  imageButton.addEventListener('click', function () {
-    imagePopUpPhoto.src = imageButton.src;
-    imagePopUpCaption.textContent = cardObject.name;
-    imagePopUpPhoto.alt = `Фотоизображение: ${imagePopUpCaption.textContent}`;
-    openPopUp(popUpPicture);
-  });
-  return cardElement;
-}*/
 
 // обработчики событий для закрытия pop up нажатием на overlay и на Escape
 const handleClosePopUpByLayout = (event) => {
@@ -84,6 +60,7 @@ const handleClosePopUpByEsc = (event) => {
   }
 }
 
+// обработка массивов с карточками
 function renderCard(array, container) {
   const card = new Card(array, cardSelector);
   const cardElement = card.generateCard();
@@ -101,15 +78,14 @@ function addArrCards(arr) {
 
 addArrCards(initialCards);
 
+// формирование валицации
 const profileValidation = new FormValidation (profileForm, profileForm.selector);
 profileValidation.enableValidation();
-console.log(profileValidation);
 
 const newCardValidation = new FormValidation (newCardForm, popUpNewCard);
 newCardValidation.enableValidation();
-console.log(newCardValidation);
 
-// скрипт для валидации input в формах
+// скрипт для сбоса валидации input в формах при открытии PopUp
 const resetValidationPopUpProfile = () => {
   formElementList.forEach((formElement) => {
     if (formElement.classList.contains('pop-up-form__field_type_error')) {
@@ -122,8 +98,6 @@ const resetValidationPopUpProfile = () => {
     }
   });
 }
-
-
 
 // скрипт для открытия pop-up Profile и заполнения полей формы текущим значением
 function openPopUp(popUp) {
@@ -147,7 +121,6 @@ function closePopUp(popUp) {
   //popUp.removeEventListener('click', handleClosePopUpByLayout);
   document.removeEventListener('keyup', handleClosePopUpByEsc);
   popUp.classList.remove('pop-up_opened');
-
 }
 
 function closePopUpProfile() {
