@@ -24,18 +24,20 @@ const elementErrorList = Array.from(popUpProfile.querySelectorAll('.pop-up-form_
 const cardSelector = '#card-element';
 
 const profileForm = {
-  name: '[name = profile-form]',
+  name: '[name =" profile-form"]',
   form: '.pop-up-form',
   input: '.pop-up-form__field',
   selector: document.querySelector('[name = "profile-form"]')
 }
 
 const newCardForm = {
-  name: '[name = newcard-form]',
+  name: '[name = "newcard-form"]',
   form: '.pop-up-form',
   input: '.pop-up-form__field',
-  selector: document.querySelector('[name = "profile-form"]')
+  selector: document.querySelector('[name = "newcard-form"]')
 }
+
+console.log(newCardForm.selector);
 
 
 // скрипт для создания карточек
@@ -103,7 +105,7 @@ const profileValidation = new FormValidation (profileForm, profileForm.selector)
 profileValidation.enableValidation();
 console.log(profileValidation);
 
-const newCardValidation = new FormValidation (newCardForm, newCardForm.selector);
+const newCardValidation = new FormValidation (newCardForm, popUpNewCard);
 newCardValidation.enableValidation();
 console.log(newCardValidation);
 
