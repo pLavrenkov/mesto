@@ -31,7 +31,7 @@ const profileForm = {
   input_error: 'pop-up-form__field_type_error',
   button: '.pop-up-form__button-submit',
   selector: document.querySelector('[name = "profile-form"]')
-}
+};
 
 const newCardForm = {
   name: '[name = "newcard-form"]',
@@ -42,7 +42,7 @@ const newCardForm = {
   input_error: 'pop-up-form__field_type_error',
   button: '.pop-up-form__button-submit',
   selector: document.querySelector('[name = "newcard-form"]')
-}
+};
 
 // скрипт для создания карточек
 import { Card } from './Card.js';
@@ -85,7 +85,7 @@ const resetValidationPopUpProfile = () => {
       elementError.classList.remove('pop-up-form__input-error_active');
     }
   });
-}
+};
 
 // обработчики событий для закрытия pop up нажатием на overlay и на Escape
 const handleClosePopUpByLayout = (event) => {
@@ -93,7 +93,7 @@ const handleClosePopUpByLayout = (event) => {
   if (event.target === popUp) {
     closePopUp(event.target);
   }
-}
+};
 
 const handleClosePopUpByEsc = (event) => {
   const popUp = document.querySelector('.pop-up_opened');
@@ -101,15 +101,14 @@ const handleClosePopUpByEsc = (event) => {
     closePopUp(popUp);
     event.stopPropagation();
   }
-}
+};
 
 // скрипт для открытия pop-up Profile и заполнения полей формы текущим значением
 function openPopUp(popUp) {
   popUp.classList.add('pop-up_opened');
   popUp.addEventListener('click', handleClosePopUpByLayout);
   document.addEventListener('keydown', handleClosePopUpByEsc);
-
-}
+};
 
 function openPopUpProfile() {
   openPopUp(popUpProfile);
@@ -117,7 +116,7 @@ function openPopUpProfile() {
   jobInput.value = jobProfile.textContent;
   submitProfileButton.removeAttribute('disabled');
   resetValidationPopUpProfile();
-}
+};
 
 openProfileButton.addEventListener('click', openPopUpProfile);
 
@@ -126,15 +125,15 @@ function closePopUp(popUp) {
   popUp.classList.remove('pop-up_opened');
   popUp.removeEventListener('click', handleClosePopUpByLayout);
   document.removeEventListener('keydown', handleClosePopUpByEsc);
-}
+};
 
 function closePopUpProfile() {
   closePopUp(popUpProfile);
-}
+};
 closeProfileButton.addEventListener('click', closePopUpProfile);
 
 // скрипт для заполнения формы pop-up Profile
-function handleSubmitProfileForm(evt) {
+function handleSubmitProfileForm() {
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
   closePopUpProfile();
@@ -160,7 +159,7 @@ function disactiveSubmitNewCardButton() {
 disactiveSubmitNewCardButton();
 
 // скрипт для добавления новой карточки
-function handleSubmitNewCardForm(evt) {
+function handleSubmitNewCardForm() {
   disactiveSubmitNewCardButton();
   const data = {
     name: titleInput.value,
