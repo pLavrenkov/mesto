@@ -8,6 +8,9 @@ class FormValidation {
     this._inputErrorClass = formSelectors.input_error;
     this._buttonClass = formSelectors.button;
     this._formElement = formElement;
+    this._submitButton = formElement.querySelector(this._buttonClass);
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputElementSelector));
+    this._errorElemntList = Array.from(this._formElement.querySelectorAll(this._errorElementSelector));
   };
 
   // обработчики для input формы
@@ -33,7 +36,7 @@ class FormValidation {
     }
   };
 
-// обработчики для кнопки формы
+  // обработчики для кнопки формы
   _hasInvalidInput(inputList) {
     return inputList.some((inputElement) => {
       return !inputElement.validity.valid;
@@ -48,14 +51,13 @@ class FormValidation {
     }
   };
 
-// установщик событий для input-полей и кнопки
+  // установщик событий для input-полей и кнопки
   _setEventListeners() {
-    const inputList = Array.from(this._formElement.querySelectorAll(this._inputElementSelector));
     const buttonElement = this._formElement.querySelector(this._buttonClass);
-    inputList.forEach(inputElement => {
+    this._inputList.forEach(inputElement => {
       inputElement.addEventListener('input', () => {
         this._checkImputValidity(inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState(this._inputList, buttonElement);
       });
     });
   };
@@ -66,6 +68,23 @@ class FormValidation {
     });
     this._setEventListeners();
   };
+
+  resetValidation() {
+    this._inputList.forEach((formElement) => {
+      if (formElement.classList.contains(this._inputErrorClass)) {
+        formElement.classList.remove(this._inputErrorClass);
+      }
+    });
+    this._errorElemntList.forEach((elementError) => {
+      if (elementError.classList.contains(this._errorActiveClass)) {
+        elementError.classList.remove(this._errorActiveClass);
+      }
+    });
+  }
+
+  disactiveSubmitButton() {
+    this._submitButton.setAttribute('disabled', true);
+  }
 };
 
 export { FormValidation };

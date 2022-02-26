@@ -72,8 +72,9 @@ profileValidation.enableValidation();
 
 const newCardValidation = new FormValidation (newCardForm, popUpNewCard);
 newCardValidation.enableValidation();
+newCardValidation.disactiveSubmitButton();
 
-// скрипт для сбоса валидации input в формах при открытии PopUp
+/*// скрипт для сбоса валидации input в формах при открытии PopUp
 const resetValidationPopUpProfile = () => {
   formElementList.forEach((formElement) => {
     if (formElement.classList.contains('pop-up-form__field_type_error')) {
@@ -85,7 +86,7 @@ const resetValidationPopUpProfile = () => {
       elementError.classList.remove('pop-up-form__input-error_active');
     }
   });
-};
+};*/
 
 // обработчики событий для закрытия pop up нажатием на overlay и на Escape
 const handleClosePopUpByLayout = (event) => {
@@ -116,7 +117,8 @@ function openPopUpProfile() {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
   submitProfileButton.removeAttribute('disabled');
-  resetValidationPopUpProfile();
+  profileValidation.resetValidation();
+  //resetValidationPopUpProfile();
 };
 
 openProfileButton.addEventListener('click', openPopUpProfile);
@@ -182,11 +184,11 @@ function closePopUpNewCard() {
 }
 closePopUpNewCardButton.addEventListener('click', closePopUpNewCard);
 
-// скрипт для дизактивации submit на pop up при создании новых карточек
+/*// скрипт для дизактивации submit на pop up при создании новых карточек
 function disactiveSubmitNewCardButton() {
   submitNewCardButton.setAttribute('disabled', true);
 }
-disactiveSubmitNewCardButton();
+disactiveSubmitNewCardButton();*/
 
 // скрипт для добавления новой карточки
 function handleSubmitNewCardForm() {
