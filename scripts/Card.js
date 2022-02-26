@@ -1,8 +1,11 @@
+import {handleCardClick} from './index.js';
+
 class Card {
   constructor(data, cardSelector) {
     this._title = data.name;
     this._image = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -30,12 +33,10 @@ class Card {
     });
 
     this._element.querySelector('.element__photo').addEventListener('click', () => {
-      document.querySelector('.pop-up-picture__photo').src = this._image;
-      document.querySelector('.pop-up-picture__caption').textContent = this._title;
-      document.querySelector('.pop-up-picture__photo').alt = `Фотоизображение: ${this._title}`;
-      document.querySelector('#pop-up-image-view').classList.add('pop-up_opened');
+      this._handleCardClick(this._title, this._image);
     });
   }
 }
 
 export { Card }
+

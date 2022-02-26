@@ -49,7 +49,7 @@ import { Card } from './Card.js';
 import { FormValidation } from './FormValidator.js';
 
 // обработка массивов с карточками
-function renderCard(array, container) {
+/*function renderCard(array, container) {
   const card = new Card(array, cardSelector);
   const cardElement = card.generateCard();
   cardElement.querySelector('.element__photo').addEventListener('click', function () {
@@ -64,7 +64,7 @@ function addArrCards(arr) {
   });
 }
 
-addArrCards(initialCards);
+addArrCards(initialCards);*/
 
 // формирование валицации
 const profileValidation = new FormValidation (profileForm, profileForm.selector);
@@ -96,8 +96,9 @@ const handleClosePopUpByLayout = (event) => {
 };
 
 const handleClosePopUpByEsc = (event) => {
-  const popUp = document.querySelector('.pop-up_opened');
+  //const popUp = document.querySelector('.pop-up_opened');
   if (event.key === 'Escape') {
+    const popUp = document.querySelector('.pop-up_opened');
     closePopUp(popUp);
     event.stopPropagation();
   }
@@ -140,6 +141,35 @@ function handleSubmitProfileForm() {
 }
 submitProfileButton.addEventListener('click', handleSubmitProfileForm);
 
+function handleCardClick(name, link) {
+  document.querySelector('.pop-up-picture__photo').src = link;
+  document.querySelector('.pop-up-picture__caption').textContent = name;
+  document.querySelector('.pop-up-picture__photo').alt = `Фотоизображение: ${name}`;
+  openPopUp(document.querySelector('#pop-up-image-view'));
+}
+
+function createCard(array) {
+  const card = new Card(array, cardSelector);
+  const cardElement = card.generateCard();
+  /*cardElement.querySelector('.element__photo').addEventListener('click', function () {
+    openPopUp(popUpPicture);
+  });*/
+  return cardElement;
+  //container.prepend(cardElement);
+}
+
+function renderCard(item, container) {
+  container.prepend(createCard(item));
+}
+
+function addArrCards(arr) {
+  arr.forEach(el => {
+    renderCard(el, cardsElementList);
+  });
+}
+
+addArrCards(initialCards);
+
 // скрипт для открытия pop-up NewCard
 function openPopUpNewCard() {
   openPopUp(popUpNewCard);
@@ -175,3 +205,5 @@ submitNewCardButton.addEventListener('click', handleSubmitNewCardForm);
 closePopUpPicture.addEventListener('click', function () {
   closePopUp(popUpPicture);
 });
+
+export {handleCardClick};
