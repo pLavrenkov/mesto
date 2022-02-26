@@ -15,6 +15,8 @@ const titleInput = popUpNewCard.querySelector('#pop-up-form-new-card-title');
 const imageInput = popUpNewCard.querySelector('#pop-up-form-new-card-added-info');
 const submitNewCardButton = popUpNewCard.querySelector('.pop-up-form__button-submit');
 const popUpPicture = document.querySelector('#pop-up-image-view');
+const popUpPictureCaption = document.querySelector('.pop-up-picture__caption');
+const popUpPicturePhoto = document.querySelector('.pop-up-picture__photo');
 const closePopUpPicture = popUpPicture.querySelector('.pop-up__button-close');
 const formNewCard = popUpNewCard.querySelector('.pop-up-form');
 const cardSelector = '#card-element';
@@ -52,7 +54,6 @@ profileValidation.enableValidation();
 
 const newCardValidation = new FormValidation (newCardForm, popUpNewCard);
 newCardValidation.enableValidation();
-newCardValidation.disactiveSubmitButton(); //блокировать кнопку требуется только в PopUp c вводом новой карточки, т.к. в  PopUp с профилем есть предзаполнение и блокировать ввод при открытии PopUp не требуется
 
 // обработчики событий для закрытия pop up нажатием на overlay и на Escape
 const handleClosePopUpByLayout = (event) => {
@@ -109,10 +110,10 @@ function handleSubmitProfileForm() {
 submitProfileButton.addEventListener('click', handleSubmitProfileForm);
 
 function handleCardClick(name, link) {
-  document.querySelector('.pop-up-picture__photo').src = link;
-  document.querySelector('.pop-up-picture__caption').textContent = name;
-  document.querySelector('.pop-up-picture__photo').alt = `Фотоизображение: ${name}`;
-  openPopUp(document.querySelector('#pop-up-image-view'));
+  popUpPicturePhoto.src = link;
+  popUpPictureCaption.textContent = name;
+  popUpPicturePhoto.alt = `Фотоизображение: ${name}`;
+  openPopUp(popUpPicture);
 }
 
 function createCard(array) {
@@ -135,6 +136,7 @@ addArrCards(initialCards);
 
 // скрипт для открытия pop-up NewCard
 function openPopUpNewCard() {
+  newCardValidation.disactiveSubmitButton();
   openPopUp(popUpNewCard);
 }
 openNewCardButton.addEventListener('click', openPopUpNewCard);

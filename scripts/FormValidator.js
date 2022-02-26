@@ -43,6 +43,13 @@ class FormValidation {
     });
   };
 
+  _hasEmptyidInput() {
+    return this._inputList.some((inputElement) => {
+      inputElement.value === '';
+    });
+  };
+
+
   _toggleButtonState(inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
       buttonElement.setAttribute('disabled', true);
@@ -60,6 +67,7 @@ class FormValidation {
         this._toggleButtonState(this._inputList, buttonElement);
       });
     });
+    console.log(this._inputList);
   };
 
   enableValidation() {
@@ -83,8 +91,10 @@ class FormValidation {
     });
   }
 
-  disactiveSubmitButton() {
-    this._submitButton.setAttribute('disabled', true);
+ disactiveSubmitButton() {
+    if (!this._hasEmptyidInput()) {
+      this._submitButton.setAttribute('disabled', true);
+    }
   }
 };
 
