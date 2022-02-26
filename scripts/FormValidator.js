@@ -69,6 +69,7 @@ class FormValidation {
     this._setEventListeners();
   };
 
+  // сброс валидации для очистки PopUp
   resetValidation() {
     this._inputList.forEach((formElement) => {
       if (formElement.classList.contains(this._inputErrorClass)) {

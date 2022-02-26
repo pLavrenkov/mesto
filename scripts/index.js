@@ -17,8 +17,6 @@ const submitNewCardButton = popUpNewCard.querySelector('.pop-up-form__button-sub
 const popUpPicture = document.querySelector('#pop-up-image-view');
 const closePopUpPicture = popUpPicture.querySelector('.pop-up__button-close');
 const formNewCard = popUpNewCard.querySelector('.pop-up-form');
-const formElementList = Array.from(popUpProfile.querySelectorAll('.pop-up-form__field'));
-const elementErrorList = Array.from(popUpProfile.querySelectorAll('.pop-up-form__input-error'));
 const cardSelector = '#card-element';
 
 // объекты PopUp
@@ -48,45 +46,13 @@ const newCardForm = {
 import { Card } from './Card.js';
 import { FormValidation } from './FormValidator.js';
 
-// обработка массивов с карточками
-/*function renderCard(array, container) {
-  const card = new Card(array, cardSelector);
-  const cardElement = card.generateCard();
-  cardElement.querySelector('.element__photo').addEventListener('click', function () {
-    openPopUp(popUpPicture);
-  });
-  container.prepend(cardElement);
-}
-
-function addArrCards(arr) {
-  arr.forEach(el => {
-    renderCard(el, cardsElementList);
-  });
-}
-
-addArrCards(initialCards);*/
-
 // формирование валицации
 const profileValidation = new FormValidation (profileForm, profileForm.selector);
 profileValidation.enableValidation();
 
 const newCardValidation = new FormValidation (newCardForm, popUpNewCard);
 newCardValidation.enableValidation();
-newCardValidation.disactiveSubmitButton();
-
-/*// скрипт для сбоса валидации input в формах при открытии PopUp
-const resetValidationPopUpProfile = () => {
-  formElementList.forEach((formElement) => {
-    if (formElement.classList.contains('pop-up-form__field_type_error')) {
-      formElement.classList.remove('pop-up-form__field_type_error');
-    }
-  });
-  elementErrorList.forEach((elementError) => {
-    if (elementError.classList.contains('pop-up-form__input-error_active')) {
-      elementError.classList.remove('pop-up-form__input-error_active');
-    }
-  });
-};*/
+newCardValidation.disactiveSubmitButton(); //блокировать кнопку требуется только в PopUp c вводом новой карточки, т.к. в  PopUp с профилем есть предзаполнение и блокировать ввод при открытии PopUp не требуется
 
 // обработчики событий для закрытия pop up нажатием на overlay и на Escape
 const handleClosePopUpByLayout = (event) => {
@@ -117,8 +83,7 @@ function openPopUpProfile() {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
   submitProfileButton.removeAttribute('disabled');
-  profileValidation.resetValidation();
-  //resetValidationPopUpProfile();
+  profileValidation.resetValidation(); //сброс валидации только на PopUp с профилем, т.к. в PopUp с добавлением карточек после закрытия введеные значения остаются и ошибки тоже должны быть показаны
 };
 
 openProfileButton.addEventListener('click', openPopUpProfile);
@@ -153,11 +118,7 @@ function handleCardClick(name, link) {
 function createCard(array) {
   const card = new Card(array, cardSelector);
   const cardElement = card.generateCard();
-  /*cardElement.querySelector('.element__photo').addEventListener('click', function () {
-    openPopUp(popUpPicture);
-  });*/
   return cardElement;
-  //container.prepend(cardElement);
 }
 
 function renderCard(item, container) {
@@ -184,15 +145,9 @@ function closePopUpNewCard() {
 }
 closePopUpNewCardButton.addEventListener('click', closePopUpNewCard);
 
-/*// скрипт для дизактивации submit на pop up при создании новых карточек
-function disactiveSubmitNewCardButton() {
-  submitNewCardButton.setAttribute('disabled', true);
-}
-disactiveSubmitNewCardButton();*/
-
 // скрипт для добавления новой карточки
 function handleSubmitNewCardForm() {
-  disactiveSubmitNewCardButton();
+  //disactiveSubmitNewCardButton();
   const data = {
     name: titleInput.value,
     link: imageInput.value
