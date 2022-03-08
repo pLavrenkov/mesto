@@ -67,7 +67,6 @@ class FormValidation {
         this._toggleButtonState(this._inputList, buttonElement);
       });
     });
-    console.log(this._inputList);
   };
 
   enableValidation() {
@@ -91,7 +90,7 @@ class FormValidation {
     });
   }
 
- disactiveSubmitButton() {
+  disactiveSubmitButton() {
     if (!this._hasEmptyidInput()) {
       this._submitButton.setAttribute('disabled', true);
     }

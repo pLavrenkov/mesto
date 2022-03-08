@@ -1,5 +1,6 @@
 // глобальные переменные
 const cardsElementList = document.querySelector('.element-list');
+const cardsElementSelector = '.element-list';
 const openProfileButton = document.querySelector('.profile__edit-button');
 const openNewCardButton = document.querySelector('.profile__add-button');
 const nameProfile = document.querySelector('.profile__title');
@@ -47,12 +48,13 @@ const newCardForm = {
 // скрипт для создания карточек
 import { Card } from './Card.js';
 import { FormValidation } from './FormValidator.js';
+import { Section } from './components/Section.js'
 
 // формирование валицации
-const profileValidation = new FormValidation (profileForm, profileForm.selector);
+const profileValidation = new FormValidation(profileForm, profileForm.selector);
 profileValidation.enableValidation();
 
-const newCardValidation = new FormValidation (newCardForm, popUpNewCard);
+const newCardValidation = new FormValidation(newCardForm, popUpNewCard);
 newCardValidation.enableValidation();
 
 // обработчики событий для закрытия pop up нажатием на overlay и на Escape
@@ -116,6 +118,19 @@ function handleCardClick(name, link) {
   openPopUp(popUpPicture);
 }
 
+const cardsList = new Section({
+  items: initialCards,
+  renderer: (cardItem) => {
+    const card = new Card(cardItem, cardSelector);
+    const cardElement = card.generateCard();
+    cardsList.setItem(cardElement);
+  },
+},
+  cardsElementSelector
+);
+
+cardsList.createItems();
+/*
 function createCard(array) {
   const card = new Card(array, cardSelector);
   const cardElement = card.generateCard();
@@ -133,7 +148,7 @@ function addArrCards(arr) {
 }
 
 addArrCards(initialCards);
-
+*/
 // скрипт для открытия pop-up NewCard
 function openPopUpNewCard() {
   newCardValidation.disactiveSubmitButton();
@@ -154,7 +169,19 @@ function handleSubmitNewCardForm() {
     name: titleInput.value,
     link: imageInput.value
   };
-  renderCard(data, cardsElementList);
+  console.log(data);
+  const addNewCard = new Section({
+    items: [data],
+    renderer: (cardItem) => {
+      const card = new Card(cardItem, cardSelector);
+      const cardElement = card.generateCard();
+      cardsList.setItem(cardElement);
+    },
+  },
+    cardsElementSelector
+  );
+  console.log(addNewCard);
+  addNewCard.createItems();
   formNewCard.reset();
   closePopUpNewCard();
 }
@@ -165,4 +192,4 @@ closePopUpPicture.addEventListener('click', function () {
   closePopUp(popUpPicture);
 });
 
-export {handleCardClick};
+export { handleCardClick };
