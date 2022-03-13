@@ -4,7 +4,6 @@ class UserInfo {
     this._jobSelector = jobSelector;
     this._nameElement = document.querySelector(this._nameSelector);
     this._jobElement = document.querySelector(this._jobSelector);
-    console.log(this._nameElement);
   }
 
   getUserInfo() {

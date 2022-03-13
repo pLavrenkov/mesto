@@ -90,7 +90,7 @@ class FormValidation {
     });
   }
 
-  disactiveSubmitButton() {
+  disactiveSubmitButton = () => {
     if (!this._hasEmptyidInput()) {
       this._submitButton.setAttribute('disabled', true);
     }

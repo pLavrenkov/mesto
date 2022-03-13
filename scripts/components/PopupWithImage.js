@@ -5,29 +5,21 @@ class PopupWithImage extends Popup {
     super(popup);
     this._caption = this._popup.querySelector(popup.caption);
     this._photo = this._popup.querySelector(popup.image);
+    this._imageSelector = popup.image;
+    this._captionSelector = popup.caption;
     this._link = link;
     this._caption = name;
     this._alt = `Фотоизображение: ${name}`;
+    console.log(this._caption);
   }
 
-  open = () => {
-    this._photo.scr = this._link;
-    this._photo.alt = this._alt;
-    this._caption.textContent = this._caption;
-    this._popup.classList.add(this._popupOpenedSelector);
-    this.setEventListeners();
+  open() {
+    this._popup.querySelector(this._imageSelector).src = this._link;
+    this._popup.querySelector(this._imageSelector).alt = this._alt;
+    this._popup.querySelector(this._captionSelector).textContent = this._caption;
+    super.open();
   }
 }
 
 export { PopupWithImage };
-/*
-function handleCardClick(name, link) {
-  popUpPicturePhoto.src = link;
-  popUpPictureCaption.textContent = name;
-  popUpPicturePhoto.alt = `Фотоизображение: ${name}`;
-  openPopUp(popUpPicture);
-}
 
-const popUpPictureCaption = document.querySelector('.pop-up-picture__caption');
-const popUpPicturePhoto = document.querySelector('.pop-up-picture__photo');
-*/

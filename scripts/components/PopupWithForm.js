@@ -10,7 +10,7 @@ export default class PopupWithForm extends Popup {
     this._inputAddedInfo = this._popup.querySelector(popup.inputAddedInfo);
   }
 
-  _getInputValues() {
+  _getInputValues = () => {
     const formInfo = {
       title: this._inputTitle.value,
       addedInfo: this._inputAddedInfo.value
@@ -22,20 +22,15 @@ export default class PopupWithForm extends Popup {
     super.open();
   }
 
-  setEventListeners() {
-    console.log(this._buttonClose);
-    this._buttonClose.addEventListener('click', this.close);
-    this._popup.addEventListener('click', this.close);
-    document.addEventListener('keydown', this._handleEscClose);
-    this._buttonSubmit.addEventListener('click', this._formSubmit);
+  close() {
+    super.close();
+    this._getInputValues();
+    this._form.reset();
   }
 
-  close() {
-    console.log(this._popup);
-    super.close();
-    this._popup.classList.remove(this._popupOpenedSelector);
-    this.removeEventListeners();
-    this._form.reset();
+  setEventListeners = () => {
+    super.setEventListeners();
+    this._buttonSubmit.addEventListener('click', this._formSubmit);
   }
 }
 
