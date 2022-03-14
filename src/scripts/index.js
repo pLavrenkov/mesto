@@ -1,3 +1,4 @@
+import '../pages/index.css';
 // глобальные переменные
 //const cardsElementList = document.querySelector('.element-list');
 const cardsElementSelector = '.element-list';
@@ -94,6 +95,7 @@ import { Section } from './components/Section.js';
 import { PopupWithImage } from './components/PopupWithImage.js';
 import { PopupWithForm } from './components/PopupWithForm.js';
 import { UserInfo } from './components/UserInfo.js';
+import { initialCards } from './cards.js';
 
 // формирование валицации
 const profileValidation = new FormValidation(profileForm, profileForm.selector);
@@ -185,10 +187,10 @@ function handleCardClick(name, link) {
     name: name,
     link: link
   }
-  const pictureView = new PopupWithImage (data, imagePopup);
+  const pictureView = new PopupWithImage(data, imagePopup);
   pictureView.open();
   pictureView.setEventListeners();
-  document.querySelector(imagePopup.image).addEventListener('click', function() {
+  document.querySelector(imagePopup.image).addEventListener('click', function () {
     pictureView.close();
   });
 
@@ -226,14 +228,14 @@ function addArrCards(arr) {
 addArrCards(initialCards);
 */
 // скрипт для открытия pop-up NewCard
-const popupAddCard = new PopupWithForm (newCardPopup, function() {
+const popupAddCard = new PopupWithForm(newCardPopup, function () {
   handleSubmitNewCardForm();
   popupAddCard.close();
 });
 
 console.log(popupAddCard);
 
-openNewCardButton.addEventListener('click', function(){
+openNewCardButton.addEventListener('click', function () {
   popupAddCard.open();
   newCardValidation.disactiveSubmitButton();
   popupAddCard.setEventListeners();

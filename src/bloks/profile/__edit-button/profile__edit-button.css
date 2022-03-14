@@ -5,7 +5,7 @@
   height: 24px;
   background-color: #000;
   border: 1px solid #fff;
-  background-image: url(../../../images/Edit\ Button.svg);
+  background-image: url(../../../images/EditButton.svg);
   transition: .5s ease;
   cursor: pointer;
   align-self: center;
