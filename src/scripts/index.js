@@ -103,11 +103,12 @@ const popupUserInfo = new PopupWithForm(userInfoPopup, function () {
 });
 
 openProfileButton.addEventListener('click', function () {
-  popupUserInfo.open();
   const makeUserInfo = new UserInfo(nameSelector, jobSelector);
   const userInfo = makeUserInfo.getUserInfo();
   nameInput.value = userInfo.name;
   jobInput.value = userInfo.job;
+  profileValidation.resetValidation();
+  popupUserInfo.open();
   popupUserInfo.setEventListeners();
 });
 
