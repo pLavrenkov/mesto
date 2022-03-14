@@ -16,22 +16,4 @@ class Section {
   }
 }
 
-/*
-function createCard(array) {
-  const card = new Card(array, cardSelector);
-  const cardElement = card.generateCard();
-  return cardElement;
-}
-
-function renderCard(item, container) {
-  container.prepend(createCard(item));
-}
-
-function addArrCards(arr) {
-  arr.forEach(el => {
-    renderCard(el, cardsElementList);
-  });
-}
-*/
-
 export { Section };

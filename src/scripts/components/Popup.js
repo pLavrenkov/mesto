@@ -35,35 +35,3 @@ class Popup {
 }
 
 export { Popup };
-/*
-function openPopUp(popUp) {
-  popUp.classList.add('pop-up_opened');
-  popUp.addEventListener('click', handleClosePopUpByLayout);
-  document.addEventListener('keydown', handleClosePopUpByEsc);
-};
-
-function closePopUp(popUp) {
-  popUp.classList.remove('pop-up_opened');
-  popUp.removeEventListener('click', handleClosePopUpByLayout);
-  document.removeEventListener('keydown', handleClosePopUpByEsc);
-};
-
-const handleClosePopUpByEsc = (event) => {
-  //const popUp = document.querySelector('.pop-up_opened');
-  if (event.key === 'Escape') {
-    const popUp = document.querySelector('.pop-up_opened');
-    closePopUp(popUp);
-    event.stopPropagation();
-  }
-};
-
-const handleClosePopUpByLayout = (event) => {
-  const popUp = document.querySelector('.pop-up_opened');
-  if (event.target === popUp) {
-    closePopUp(event.target);
-  }
-};
-
-
-
-*/
