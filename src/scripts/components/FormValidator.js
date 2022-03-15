@@ -21,7 +21,7 @@ class FormValidation {
     errorElement.classList.add(this._errorActiveClass);
   };
 
-  _hideInputError(inputElement) {
+  _hideInputError = (inputElement) => {
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.textContent = '';
@@ -60,11 +60,10 @@ class FormValidation {
 
   // установщик событий для input-полей и кнопки
   _setEventListeners() {
-    const buttonElement = this._formElement.querySelector(this._buttonClass);
     this._inputList.forEach(inputElement => {
       inputElement.addEventListener('input', () => {
         this._checkImputValidity(inputElement);
-        this._toggleButtonState(this._inputList, buttonElement);
+        this._toggleButtonState(this._inputList, this._submitButton);
       });
     });
   };
@@ -78,18 +77,15 @@ class FormValidation {
 
   // сброс валидации для очистки PopUp
   resetValidation() {
-    this._inputList.forEach((formElement) => {
-      if (formElement.classList.contains(this._inputErrorClass)) {
-        formElement.classList.remove(this._inputErrorClass);
-      }
-    });
-    this._errorElemntList.forEach((elementError) => {
-      if (elementError.classList.contains(this._errorActiveClass)) {
-        elementError.classList.remove(this._errorActiveClass);
-      }
+    this._inputList.forEach((inputElement) => {
+      if (inputElement.classList.contains(this._inputErrorClass)) {
+        this._hideInputError(inputElement);
+       }
     });
   }
-
+// не стал исправлять, поскольку методы очистки у форм разные: в предзаполненной форме надо убрать ошибки перед открытием popup и копку можно не блокировать,
+// а в форме добавления новой карточки надо наоборот при открытии popup сохранять ошибки вместе с введенными значениями и выводить их при новом открытии popup
+// предложенный вариант организации кода такое действие не смог предоставить (или я не нашел нужный вариант)
   disactiveSubmitButton = () => {
     if (!this._hasEmptyidInput()) {
       this._submitButton.setAttribute('disabled', true);
