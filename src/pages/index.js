@@ -93,9 +93,7 @@ const popupAddCard = new PopupWithForm(newCardPopup, function () {
 openNewCardButton.addEventListener('click', function () {
   newCardValidation.disactiveSubmitButton();
   popupAddCard.open();
-
   popupAddCard.setEventListeners();
-
 })
 
 function handleSubmitNewCardForm() {

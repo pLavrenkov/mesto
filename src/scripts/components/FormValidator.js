@@ -10,7 +10,6 @@ class FormValidation {
     this._formElement = formElement;
     this._submitButton = formElement.querySelector(this._buttonClass);
     this._inputList = Array.from(this._formElement.querySelectorAll(this._inputElementSelector));
-    this._errorElemntList = Array.from(this._formElement.querySelectorAll(this._errorElementSelector));
   };
 
   // обработчики для input формы
@@ -80,12 +79,12 @@ class FormValidation {
     this._inputList.forEach((inputElement) => {
       if (inputElement.classList.contains(this._inputErrorClass)) {
         this._hideInputError(inputElement);
-       }
+      }
     });
   }
-// не стал исправлять, поскольку методы очистки у форм разные: в предзаполненной форме надо убрать ошибки перед открытием popup и копку можно не блокировать,
-// а в форме добавления новой карточки надо наоборот при открытии popup сохранять ошибки вместе с введенными значениями и выводить их при новом открытии popup
-// предложенный вариант организации кода такое действие не смог предоставить (или я не нашел нужный вариант)
+  // не стал исправлять, поскольку методы очистки у форм разные: в предзаполненной форме надо убрать ошибки перед открытием popup и копку можно не блокировать,
+  // а в форме добавления новой карточки надо наоборот при открытии popup сохранять ошибки вместе с введенными значениями и выводить их при новом открытии popup
+  // предложенный вариант организации кода такое действие не смог предоставить (или я не нашел нужный вариант)
   disactiveSubmitButton = () => {
     if (!this._hasEmptyidInput()) {
       this._submitButton.setAttribute('disabled', true);
