@@ -8,6 +8,7 @@ import { nameSelector } from '../scripts/utils/constnts.js';
 import { jobSelector } from '../scripts/utils/constnts.js';
 import { openProfileButton } from '../scripts/utils/constnts.js';
 import { popUpProfile } from '../scripts/utils/constnts.js';
+import { popUpProfileForm } from '../scripts/utils/constnts.js';
 import { nameInput } from '../scripts/utils/constnts.js';
 import { jobInput } from '../scripts/utils/constnts.js';
 import { popUpNewCard } from '../scripts/utils/constnts.js';
@@ -15,6 +16,7 @@ import { titleInput } from '../scripts/utils/constnts.js';
 import { imageInput } from '../scripts/utils/constnts.js';
 import { formNewCard } from '../scripts/utils/constnts.js';
 import { cardSelector } from '../scripts/utils/constnts.js';
+import { initialCards } from '../scripts/utils/constnts.js';
 
 // импорты объектов попапов и форм
 import { popupSettings } from '../scripts/utils/constnts.js';
@@ -31,17 +33,23 @@ import { Section } from '../scripts/components/Section.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
 import { UserInfo } from '../scripts/components/UserInfo.js';
-import { initialCards } from '../scripts/cards.js';
+
+Object.assign(userInfoPopup, popupSettings);
+console.log(userInfoPopup);
+Object.assign(imagePopup, popupSettings);
+Object.assign(newCardPopup, popupSettings);
 
 // формирование валицации
-const profileValidation = new FormValidation(profileForm, profileForm.selector);
+const profileValidation = new FormValidation(userInfoPopup, userInfoPopup.formElement);
 profileValidation.enableValidation();
 
-const newCardValidation = new FormValidation(newCardForm, popUpNewCard);
+const newCardValidation = new FormValidation(newCardPopup, newCardPopup.formElement);
 newCardValidation.enableValidation();
 
 //обработка popup с user info
 const makeUserInfo = new UserInfo(nameSelector, jobSelector);
+
+
 
 const popupUserInfo = new PopupWithForm(userInfoPopup, function () {
   makeUserInfo.setUserInfo(nameInput.value, jobInput.value);
@@ -56,6 +64,8 @@ openProfileButton.addEventListener('click', function () {
   popupUserInfo.open();
   popupUserInfo.setEventListeners();
 });
+
+
 
 function handleCardClick(name, link) {
   const data = {
@@ -74,7 +84,7 @@ function handleCardClick(name, link) {
 const cardsList = new Section({
   items: initialCards,
   renderer: (cardItem) => {
-    const card = new Card(cardItem, cardSelector);
+    const card = new Card(cardItem, cardSelector, handleCardClick);
     const cardElement = card.generateCard();
     cardsList.setItem(cardElement);
   },
@@ -85,6 +95,8 @@ const cardsList = new Section({
 cardsList.createItems();
 
 //popup для новых карточек
+
+
 const popupAddCard = new PopupWithForm(newCardPopup, function () {
   handleSubmitNewCardForm();
   popupAddCard.close();
@@ -104,7 +116,7 @@ function handleSubmitNewCardForm() {
   const addNewCard = new Section({
     items: [data],
     renderer: (cardItem) => {
-      const card = new Card(cardItem, cardSelector);
+      const card = new Card(cardItem, cardSelector, handleCardClick);
       const cardElement = card.generateCard();
       cardsList.setItem(cardElement);
     },
@@ -115,5 +127,3 @@ function handleSubmitNewCardForm() {
   formNewCard.reset();
   popupAddCard.close();
 }
-
-export { handleCardClick };

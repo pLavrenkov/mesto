@@ -10,7 +10,6 @@ class PopupWithImage extends Popup {
     this._link = link;
     this._caption = name;
     this._alt = `Фотоизображение: ${name}`;
-    console.log(this._caption);
   }
 
   open() {
