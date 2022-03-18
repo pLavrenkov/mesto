@@ -1,7 +1,7 @@
 class FormValidation {
   constructor(formSelectors, formElement) {
-    this._formSelector = formSelectors.name;
-    this._formElementSelector = formSelectors.form;
+    //this._formSelector = formSelectors.name;
+    //this._formElementSelector = formSelectors.form;
     this._inputElementSelector = formSelectors.input;
     this._errorElementSelector = formSelectors.error;
     this._errorActiveClass = formSelectors.error_active;
@@ -10,26 +10,24 @@ class FormValidation {
     this._formElement = formElement;
     this._submitButton = formElement.querySelector(this._buttonClass);
     this._inputList = Array.from(this._formElement.querySelectorAll(this._inputElementSelector));
-    console.log(this._inputList);
   };
 
   // обработчики для input формы
-  _showInputError = (inputElement, errorMessage) => {
+  _showInputError (inputElement, errorMessage) {
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._errorActiveClass);
   };
 
-  _hideInputError = (inputElement) => {
+  _hideInputError (inputElement) {
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.textContent = '';
     errorElement.classList.remove(this._errorActiveClass);
   };
 
-  _checkImputValidity = (inputElement) => {
-    console.log(inputElement);
+  _checkImputValidity (inputElement) {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {
@@ -62,7 +60,6 @@ class FormValidation {
   // установщик событий для input-полей и кнопки
   _setEventListeners() {
     this._inputList.forEach(inputElement => {
-      console.log(inputElement);
       inputElement.addEventListener('input', () => {
         this._checkImputValidity(inputElement);
         this._toggleButtonState(this._inputList, this._submitButton);

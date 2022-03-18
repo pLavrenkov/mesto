@@ -1,5 +1,7 @@
 const presets = [
   ['@babel/preset-env', { // какой пресет использовать
+    //useBuiltIns: "usage", // "usage" | "entry" | false, defaults to false.
+    corejs: "3.21.1",
     targets: { // какие версии браузеров поддерживать
       edge: '17',
       ie: '11',
