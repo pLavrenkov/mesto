@@ -5,7 +5,6 @@ export const openNewCardButton = document.querySelector('.profile__add-button');
 export const nameSelector = '.profile__title';
 export const jobSelector = '.profile__subtitle';
 export const popUpProfile = document.querySelector('#pop-up-profile');
-//export const popUpProfileForm = popUpProfile.document.querySelector('.pop-up-form');
 export const nameInput = popUpProfile.querySelector('#pop-up-form-profile-title');
 export const jobInput = popUpProfile.querySelector('#pop-up-form-profile-added-info');
 export const popUpNewCard = document.querySelector('#pop-up-add-new-card');

@@ -7,21 +7,13 @@ import { openNewCardButton } from '../scripts/utils/constnts.js';
 import { nameSelector } from '../scripts/utils/constnts.js';
 import { jobSelector } from '../scripts/utils/constnts.js';
 import { openProfileButton } from '../scripts/utils/constnts.js';
-//import { popUpProfile } from '../scripts/utils/constnts.js';
-//import { popUpProfileForm } from '../scripts/utils/constnts.js';
 import { nameInput } from '../scripts/utils/constnts.js';
 import { jobInput } from '../scripts/utils/constnts.js';
-//import { popUpNewCard } from '../scripts/utils/constnts.js';
-import { titleInput } from '../scripts/utils/constnts.js';
-import { imageInput } from '../scripts/utils/constnts.js';
-import { formNewCard } from '../scripts/utils/constnts.js';
 import { cardSelector } from '../scripts/utils/constnts.js';
 import { initialCards } from '../scripts/utils/constnts.js';
 
 // импорты объектов попапов и форм
 import { popupSettings } from '../scripts/utils/constnts.js';
-//import { profileForm } from '../scripts/utils/constnts.js';
-//import { newCardForm } from '../scripts/utils/constnts.js';
 import { userInfoPopup } from '../scripts/utils/constnts.js';
 import { newCardPopup } from '../scripts/utils/constnts.js';
 import { imagePopup } from '../scripts/utils/constnts.js';
@@ -52,6 +44,7 @@ const popupUserInfo = new PopupWithForm(userInfoPopup, function ({ title, info }
   makeUserInfo.setUserInfo(title, info);
   popupUserInfo.close();
 });
+popupUserInfo.setEventListeners();
 
 openProfileButton.addEventListener('click', function () {
   const userInfo = makeUserInfo.getUserInfo();
@@ -59,39 +52,37 @@ openProfileButton.addEventListener('click', function () {
   jobInput.value = userInfo.job;
   profileValidation.resetValidation();
   popupUserInfo.open();
-  popupUserInfo.setEventListeners();
 });
+
+const pictureView = new PopupWithImage(imagePopup);
+pictureView.setEventListeners();
 
 function handleCardClick(name, link) {
   const data = {
     name: name,
     link: link
   }
-  const pictureView = new PopupWithImage(data, imagePopup);
-  pictureView.open();
-  pictureView.setEventListeners();
-  document.querySelector(imagePopup.image).addEventListener('click', function () {
-    pictureView.close();
-  });
+  pictureView.open(data);
 }
 
 //формирование карточек
-const cardsList = new Section({
-  items: initialCards,
-  renderer: (cardItem) => {
-    const card = new Card(cardItem, cardSelector, handleCardClick);
-    const cardElement = card.generateCard();
-    cardsList.setItem(cardElement);
+function doSection(items) {
+  const addNewCard = new Section({
+    items,
+    renderer: (cardItem) => {
+      const newCard = createCard(cardItem);
+      addNewCard.setItem(newCard);
+    },
   },
-},
   cardsElementSelector
-);
+  );
+  addNewCard.createItems();
+}
 
-cardsList.createItems();
+doSection(initialCards);
 
 //popup для новых карточек
 const popupAddCard = new PopupWithForm(newCardPopup, function (data) {
-  console.log(data.title);
   handleSubmitNewCardForm(data);
   popupAddCard.close();
 });
@@ -102,23 +93,16 @@ openNewCardButton.addEventListener('click', function () {
   popupAddCard.open();
 });
 
+function createCard(cardItem) {
+  const card = new Card(cardItem, cardSelector, handleCardClick);
+  const cardElement = card.generateCard();
+  return cardElement;
+}
+
 function handleSubmitNewCardForm(data) {
   const bigdata = {
-    name: data.title,//titleInput.value,
-    link: data.info//imageInput.value
+    name: data.title,
+    link: data.info
   };
-  console.log(bigdata);
-  const addNewCard = new Section({
-    items: [bigdata],
-    renderer: (cardItem) => {
-      const card = new Card(cardItem, cardSelector, handleCardClick);
-      const cardElement = card.generateCard();
-      cardsList.setItem(cardElement);
-    },
-  },
-    cardsElementSelector
-  );
-  addNewCard.createItems();
-  formNewCard.reset();
-  //popupAddCard.close();
+doSection([bigdata]);
 }
