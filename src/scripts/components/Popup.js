@@ -10,7 +10,7 @@ class Popup {
     document.addEventListener('keydown', this._handleEscClose);
   }
 
-  close = () => {
+  close() {
     this._popup.classList.remove(this._popupOpenedSelector);
     document.removeEventListener('keydown', this._handleEscClose);
   }

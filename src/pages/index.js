@@ -26,21 +26,21 @@ import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
 import { UserInfo } from '../scripts/components/UserInfo.js';
 
-Object.assign(userInfoPopup, popupSettings);
-Object.assign(imagePopup, popupSettings);
-Object.assign(newCardPopup, popupSettings);
+const userInfoPopupUpgrade = Object.assign(userInfoPopup, popupSettings);
+const imagePopupUpgrade = Object.assign(imagePopup, popupSettings);
+const newCardPopupUpgrade = Object.assign(newCardPopup, popupSettings);
 
 // формирование валицации
-const profileValidation = new FormValidation(popupSettings, userInfoPopup.formElement);
+const profileValidation = new FormValidation(popupSettings, userInfoPopupUpgrade.formElement);
 profileValidation.enableValidation();
 
-const newCardValidation = new FormValidation(popupSettings, newCardPopup.formElement);
+const newCardValidation = new FormValidation(popupSettings, newCardPopupUpgrade.formElement);
 newCardValidation.enableValidation();
 
 //обработка popup с user info
 const makeUserInfo = new UserInfo(nameSelector, jobSelector);
 
-const popupUserInfo = new PopupWithForm(userInfoPopup, function ({ title, info }) {
+const popupUserInfo = new PopupWithForm(userInfoPopupUpgrade, function ({ title, info }) {
   makeUserInfo.setUserInfo(title, info);
   popupUserInfo.close();
 });
@@ -54,7 +54,7 @@ openProfileButton.addEventListener('click', function () {
   popupUserInfo.open();
 });
 
-const pictureView = new PopupWithImage(imagePopup);
+const pictureView = new PopupWithImage(imagePopupUpgrade);
 pictureView.setEventListeners();
 
 function handleCardClick(name, link) {
@@ -65,6 +65,28 @@ function handleCardClick(name, link) {
   pictureView.open(data);
 }
 
+function cardRender(cardItem) {
+  createCard(cardItem);
+}
+
+const supercards = {
+  items: initialCards,
+  renderer: cardRender([initialCards])
+}
+
+const cardSection = new Section({
+  items: [],
+  renderer: ({}) => {
+    const newCard = createCard(cardItem);
+    cardSection.createItems(newCard);
+  },
+},
+  cardsElementSelector
+);
+cardSection.setItem(initialCards);
+
+
+
 //формирование карточек
 function doSection(items) {
   const addNewCard = new Section({
@@ -74,7 +96,7 @@ function doSection(items) {
       addNewCard.setItem(newCard);
     },
   },
-  cardsElementSelector
+    cardsElementSelector
   );
   addNewCard.createItems();
 }
@@ -82,7 +104,7 @@ function doSection(items) {
 doSection(initialCards);
 
 //popup для новых карточек
-const popupAddCard = new PopupWithForm(newCardPopup, function (data) {
+const popupAddCard = new PopupWithForm(newCardPopupUpgrade, function (data) {
   handleSubmitNewCardForm(data);
   popupAddCard.close();
 });
@@ -90,6 +112,7 @@ popupAddCard.setEventListeners();
 
 openNewCardButton.addEventListener('click', function () {
   newCardValidation.disactiveSubmitButton();
+  newCardValidation.resetValidation();
   popupAddCard.open();
 });
 
@@ -104,5 +127,5 @@ function handleSubmitNewCardForm(data) {
     name: data.title,
     link: data.info
   };
-doSection([bigdata]);
+  doSection([bigdata]);
 }

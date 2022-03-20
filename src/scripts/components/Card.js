@@ -32,7 +32,7 @@ export class Card {
       item.closest('.element').remove();
     });
 
-    this._element.querySelector('.element__photo').addEventListener('click', () => {
+    this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._title, this._image);
     });
   }
