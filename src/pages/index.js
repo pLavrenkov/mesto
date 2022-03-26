@@ -28,6 +28,42 @@ import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
 import { UserInfo } from '../scripts/components/UserInfo.js';
 import { Api } from '../scripts/components/Api.js'
 
+const userApi = new Api(
+  'https://nomoreparties.co/v1/cohort-38',
+  {
+    authorization: '4668ff3a-c5ce-444d-bb20-dac560596bbe',
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  }
+);
+
+userApi.getUserInfo()
+  .then(res => {
+    console.log(res);
+    document.querySelector('.profile__title').textContent = res.name;
+    document.querySelector('.profile__subtitle').textContent = res.about;
+    document.querySelector('.profile__avatar').src = res.avatar;
+  });
+
+const api = new Api(
+  'https://mesto.nomoreparties.co/v1/cohort-38',
+  {
+    authorization: '4668ff3a-c5ce-444d-bb20-dac560596bbe',
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  }
+);
+
+let cardsNew = api.getInitialCards()
+  .then(cards => {
+    console.log(cards);
+    return cards;
+
+  });
+
+console.log(cardsNew[0]);
+
+
 const userInfoPopupUpgrade = Object.assign(userInfoPopup, popupSettings);
 const imagePopupUpgrade = Object.assign(imagePopup, popupSettings);
 const newCardPopupUpgrade = Object.assign(newCardPopup, popupSettings);
@@ -44,6 +80,7 @@ const makeUserInfo = new UserInfo(nameSelector, jobSelector);
 
 const popupUserInfo = new PopupWithForm(userInfoPopupUpgrade, function ({ title, info }) {
   makeUserInfo.setUserInfo(title, info);
+  userApi.patchUserInfo(title, info);
   popupUserInfo.close();
 });
 popupUserInfo.setEventListeners();
@@ -67,9 +104,51 @@ function handleCardClick(name, link) {
   pictureView.open(data);
 }
 
-let dataCards = initialCards;
+//let dataCards = initialCards;
 
-const cardSection = new Section({
+api.getInitialCards()
+  .then(cards => {
+    const cardSection = new Section({
+      items: cards,
+      renderer: (cardItem) => {
+        const newCard = createCard(cardItem);
+        cardSection.setItem(newCard);
+      },
+    },
+      cardsElementSelector
+    );
+    cardSection.createItems();
+
+    //popup для новых карточек
+    const popupAddCard = new PopupWithForm(newCardPopupUpgrade, function (data) {
+      handleSubmitNewCardForm(data);
+      popupAddCard.close();
+    });
+    popupAddCard.setEventListeners();
+
+    openNewCardButton.addEventListener('click', function () {
+      newCardValidation.disactiveSubmitButton();
+      newCardValidation.resetValidation();
+      popupAddCard.open();
+    });
+
+    function createCard(cardItem) {
+      const card = new Card(cardItem, cardSelector, handleCardClick);
+      const cardElement = card.generateCard();
+      return cardElement;
+    }
+
+    function handleSubmitNewCardForm(data) {
+      const bigdata = {
+        name: data.title,
+        link: data.info
+      };
+      api.putNewCard(bigdata.name, bigdata.link);
+      cardSection.setItem(createCard(bigdata));
+    }
+  });
+
+/*const cardSection = new Section({
   items: dataCards,
   renderer: (cardItem) => {
     const newCard = createCard(cardItem);
@@ -107,3 +186,4 @@ function handleSubmitNewCardForm(data) {
   //const newCard = createCard(bigdata);
   cardSection.setItem(createCard(bigdata));
 }
+*/

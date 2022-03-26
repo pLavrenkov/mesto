@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width = device-width, initial-scale=1">
-  <!--<link rel="stylesheet" href="./pages/index.css">-->
   <title lang="en">Mesto</title>
 </head>
 
@@ -50,9 +49,9 @@
       <button type="button" class="pop-up__button-close"></button>
       <form class="pop-up-form" name="profile-form" novalidate>
         <h2 class="pop-up-form__title">Редактировать профиль</h2>
-        <input type="text" class="pop-up-form__field" placeholder="Введите имя" id="pop-up-form-profile-title" required minlength="2" maxlength="40" autocomplete="name">
+        <input type="text" class="pop-up-form__field" placeholder="Введите имя" id="pop-up-form-profile-title" name="title" required minlength="2" maxlength="40" autocomplete="name">
         <span class="pop-up-form__input-error pop-up-form-profile-title-error"></span>
-        <input type="text" class="pop-up-form__field" placeholder="Введите занятие" id="pop-up-form-profile-added-info" required minlength="2" maxlength="200" autocomplete="off">
+        <input type="text" class="pop-up-form__field" placeholder="Введите занятие" id="pop-up-form-profile-added-info" name="info" required minlength="2" maxlength="200" autocomplete="off">
         <span class="pop-up-form__input-error pop-up-form-profile-added-info-error"></span>
         <button type="submit" class="pop-up-form__button-submit">Сохранить</button>
       </form>
@@ -63,9 +62,9 @@
       <button type="button" class="pop-up__button-close"></button>
       <form class="pop-up-form" name="newcard-form" novalidate>
         <h2 class="pop-up-form__title">Новое место</h2>
-        <input type="text" class="pop-up-form__field" placeholder="Название" id="pop-up-form-new-card-title" required minlength="2" maxlength="30" autocomplete="off">
+        <input type="text" class="pop-up-form__field" placeholder="Название" id="pop-up-form-new-card-title" name="title" required minlength="2" maxlength="30" autocomplete="off">
         <span class="pop-up-form__input-error pop-up-form-new-card-title-error"></span>
-        <input type="url" class="pop-up-form__field" placeholder="Ссылка на картинку" id="pop-up-form-new-card-added-info" required autocomplete="url">
+        <input type="url" class="pop-up-form__field" placeholder="Ссылка на картинку" id="pop-up-form-new-card-added-info" name="info" required autocomplete="url">
         <span class="pop-up-form__input-error pop-up-form-new-card-added-info-error"></span>
         <button type="submit" class="pop-up-form__button-submit">Сохранить</button>
       </form>
@@ -80,15 +79,6 @@
       </figure>
     </div>
   </section>
-  <!--<script type="text/javascript" src="./scripts/cards.js"></script>
-  <script type="module" src="./scripts/index.js"></script>
-  <script type="module" src="./scripts/Card.js"></script>
-  <script type="module" src="./scripts/FormValidator.js"></script>
-  <script type="module" src="./scripts/components/Section.js"></script>
-  <script type="module" src="./scripts/components/Popup.js"></script>
-  <script type="module" src="./scripts/components/PopupWithImage.js"></script>
-  <script type="module" scr="./scripts/components/UserInfo.js"></script>
-  <script type="module" scr="./scripts/components/PopupWithForm.js"></script>-->
 </body>
 
 </html>

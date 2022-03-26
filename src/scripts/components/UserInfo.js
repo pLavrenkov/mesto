@@ -21,8 +21,3 @@ class UserInfo {
 }
 
 export { UserInfo };
-
-/*
-nameInput.value = nameProfile.textContent;
-jobInput.value = jobProfile.textContent;
-*/
