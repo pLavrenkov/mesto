@@ -103,6 +103,6 @@ function handleSubmitNewCardForm(data) {
     name: data.title,
     link: data.info
   };
-  const newCard = createCard(bigdata);
-  cardSection.setItem(newCard);
+  //const newCard = createCard(bigdata);
+  cardSection.setItem(createCard(bigdata));
 }
