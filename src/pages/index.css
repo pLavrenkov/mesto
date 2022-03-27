@@ -29,9 +29,12 @@
 @import url(../bloks/element/__photo/element__photo.css);
 @import url(../bloks/element/__capture/element__capture.css);
 @import url(../bloks/element/__title/element__title.css);
+@import url(../bloks/element/__like-block/element__like-block.css);
 @import url(../bloks/element/__like/element__like.css);
+@import url(../bloks/element/__likes/element__likes.css);
 @import url(../bloks/element/__like/_active/element__like_active.css);
 @import url(../bloks/element/__bin-button/element__bin-button.css);
+@import url(../bloks/element/__bin-button/_display_none/element__bin-button_display_none.css);
 
 /* секция footer */
 @import url(../bloks/footer/footer.css);
@@ -45,7 +48,9 @@
 
 /* секция pop-up-form */
 @import url(../bloks/pop-up-form/pop-up-form.css);
+@import url(../bloks/pop-up-form/_delete/pop-up-form_delete.css);
 @import url(../bloks/pop-up-form/__title/pop-up-form__title.css);
+@import url(../bloks/pop-up-form/__title/_delete/pop-up-form__title_delete.css);
 @import url(../bloks/pop-up-form/__field/pop-up-form__field.css);
 @import url(../bloks/pop-up-form/__button-submit/pop-up-form__button-submit.css);
 @import url(../bloks/pop-up-form/__field/pop-up-form__field.css);

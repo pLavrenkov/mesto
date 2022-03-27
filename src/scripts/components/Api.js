@@ -41,7 +41,7 @@ export class Api {
   }
 
   patchUserInfo(name, about) {
-    const res = fetch(`${this._baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
@@ -61,7 +61,7 @@ export class Api {
   }
 
   putNewCard(name, link) {
-    const res = fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
@@ -75,13 +75,14 @@ export class Api {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .catch((err) => {
-        console.log(err);
+      .then(obj => {
+        console.log(obj);
+        return obj;
       });
   }
 
   deleteCard(cardId) {
-    const res = fetch(`${this._baseUrl}/cards/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
         authorization: '4668ff3a-c5ce-444d-bb20-dac560596bbe',
@@ -93,8 +94,7 @@ export class Api {
           return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status}`);
-      }
-      )
+      })
   }
 }
 

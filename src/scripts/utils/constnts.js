@@ -77,3 +77,10 @@ export const imagePopup = {
   image: '.pop-up-picture__photo',
   caption: '.pop-up-picture__caption'
 };
+
+export const deletePopup = {
+  id: '#pop-up-delete-card',
+  name: '[name = "deletecard-form"]',
+  popupElement: document.querySelector('#pop-up-delete-card'),
+  formElement: document.querySelector('[name = "deletecard-form"]')
+}

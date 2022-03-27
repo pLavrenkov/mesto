@@ -16,7 +16,8 @@ import {
   popupSettings,
   userInfoPopup,
   newCardPopup,
-  imagePopup
+  imagePopup,
+  deletePopup
 } from '../scripts/utils/constnts.js';
 
 // импорты модулей
@@ -25,8 +26,10 @@ import { FormValidation } from '../scripts/components/FormValidator.js';
 import { Section } from '../scripts/components/Section.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
+import { PopupDeleteCard } from '../scripts/components/PopupDeleteCard.js'
 import { UserInfo } from '../scripts/components/UserInfo.js';
 import { Api } from '../scripts/components/Api.js'
+//import { pop } from 'core-js/core/array';
 
 const userApi = new Api(
   'https://nomoreparties.co/v1/cohort-38',
@@ -54,19 +57,10 @@ const api = new Api(
   }
 );
 
-let cardsNew = api.getInitialCards()
-  .then(cards => {
-    console.log(cards);
-    return cards;
-
-  });
-
-console.log(cardsNew[0]);
-
-
 const userInfoPopupUpgrade = Object.assign(userInfoPopup, popupSettings);
 const imagePopupUpgrade = Object.assign(imagePopup, popupSettings);
 const newCardPopupUpgrade = Object.assign(newCardPopup, popupSettings);
+const deletePopupUpgrade = Object.assign(deletePopup, popupSettings);
 
 // формирование валицации
 const profileValidation = new FormValidation(popupSettings, userInfoPopupUpgrade.formElement);
@@ -104,19 +98,18 @@ function handleCardClick(name, link) {
   pictureView.open(data);
 }
 
-//let dataCards = initialCards;
-
 api.getInitialCards()
   .then(cards => {
     const cardSection = new Section({
       items: cards,
       renderer: (cardItem) => {
         const newCard = createCard(cardItem);
-        cardSection.setItem(newCard);
+        cardSection.setItemAppend(newCard);
       },
     },
       cardsElementSelector
     );
+
     cardSection.createItems();
 
     //popup для новых карточек
@@ -133,8 +126,20 @@ api.getInitialCards()
     });
 
     function createCard(cardItem) {
-      const card = new Card(cardItem, cardSelector, handleCardClick);
+      const card = new Card(cardItem, cardSelector, handleCardClick, userApi);
       const cardElement = card.generateCard();
+      const popupDeleteCard = new PopupDeleteCard(
+        deletePopupUpgrade,
+        function () {
+          cardElement.remove();
+          api.deleteCard(cardItem._id);
+          popupDeleteCard.close();
+        },
+        cardItem._id);
+      cardElement.querySelector('.element__bin-button').addEventListener('click', function () {
+        popupDeleteCard.open();
+        popupDeleteCard.setEventListeners();
+      });
       return cardElement;
     }
 
@@ -143,47 +148,13 @@ api.getInitialCards()
         name: data.title,
         link: data.info
       };
-      api.putNewCard(bigdata.name, bigdata.link);
-      cardSection.setItem(createCard(bigdata));
+      api.putNewCard(bigdata.name, bigdata.link)
+      .then(obj => {
+        console.log(obj);
+        cardSection.setItem(createCard(obj));
+      });
     }
   });
 
-/*const cardSection = new Section({
-  items: dataCards,
-  renderer: (cardItem) => {
-    const newCard = createCard(cardItem);
-    cardSection.setItem(newCard);
-  },
-},
-  cardsElementSelector
-);
-cardSection.createItems();
 
-//popup для новых карточек
-const popupAddCard = new PopupWithForm(newCardPopupUpgrade, function (data) {
-  handleSubmitNewCardForm(data);
-  popupAddCard.close();
-});
-popupAddCard.setEventListeners();
 
-openNewCardButton.addEventListener('click', function () {
-  newCardValidation.disactiveSubmitButton();
-  newCardValidation.resetValidation();
-  popupAddCard.open();
-});
-
-function createCard(cardItem) {
-  const card = new Card(cardItem, cardSelector, handleCardClick);
-  const cardElement = card.generateCard();
-  return cardElement;
-}
-
-function handleSubmitNewCardForm(data) {
-  const bigdata = {
-    name: data.title,
-    link: data.info
-  };
-  //const newCard = createCard(bigdata);
-  cardSection.setItem(createCard(bigdata));
-}
-*/
