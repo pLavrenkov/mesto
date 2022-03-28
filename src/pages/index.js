@@ -31,31 +31,36 @@ import { UserInfo } from '../scripts/components/UserInfo.js';
 import { Api } from '../scripts/components/Api.js'
 //import { pop } from 'core-js/core/array';
 
-const userApi = new Api(
+/*const userApi = new Api(
   'https://nomoreparties.co/v1/cohort-38',
   {
     authorization: '4668ff3a-c5ce-444d-bb20-dac560596bbe',
     'Content-Type': 'application/json',
     'Accept': 'application/json'
   }
-);
+);*/
 
-userApi.getUserInfo()
-  .then(res => {
-    console.log(res);
-    document.querySelector('.profile__title').textContent = res.name;
-    document.querySelector('.profile__subtitle').textContent = res.about;
-    document.querySelector('.profile__avatar').src = res.avatar;
-  });
 
 const api = new Api(
-  'https://mesto.nomoreparties.co/v1/cohort-38',
+  {
+    baseUrlMesto: 'https://mesto.nomoreparties.co/v1/cohort-38',
+    baseUrlUser:'https://nomoreparties.co/v1/cohort-38'
+
+  },
   {
     authorization: '4668ff3a-c5ce-444d-bb20-dac560596bbe',
     'Content-Type': 'application/json',
     'Accept': 'application/json'
   }
 );
+
+api.getUserInfo()
+  .then(res => {
+    console.log(res);
+    document.querySelector('.profile__title').textContent = res.name;
+    document.querySelector('.profile__subtitle').textContent = res.about;
+    document.querySelector('.profile__avatar').src = res.avatar;
+  });
 
 const userInfoPopupUpgrade = Object.assign(userInfoPopup, popupSettings);
 const imagePopupUpgrade = Object.assign(imagePopup, popupSettings);
@@ -126,7 +131,7 @@ api.getInitialCards()
     });
 
     function createCard(cardItem) {
-      const card = new Card(cardItem, cardSelector, handleCardClick, userApi);
+      const card = new Card(cardItem, cardSelector, handleCardClick, api);
       const cardElement = card.generateCard();
       const popupDeleteCard = new PopupDeleteCard(
         deletePopupUpgrade,

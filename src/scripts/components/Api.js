@@ -1,11 +1,12 @@
 export class Api {
   constructor(baseUrl, headers) {
-    this._baseUrl = baseUrl;
+    this._baseUrlMesto = baseUrl.baseUrlMesto;
+    this._baseUrlUser = baseUrl.baseUrlUser;
     this._headers = headers;
   }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this._baseUrlMesto}/cards`, {
       headers: this._headers,
     }
     )
@@ -24,7 +25,7 @@ export class Api {
   }
 
   getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return fetch(`${this._baseUrlUser}/users/me`, {
       headers: this._headers,
     }
     )
@@ -41,7 +42,7 @@ export class Api {
   }
 
   patchUserInfo(name, about) {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return fetch(`${this._baseUrlUser}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
@@ -61,7 +62,7 @@ export class Api {
   }
 
   putNewCard(name, link) {
-    return fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this._baseUrlMesto}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
@@ -82,12 +83,49 @@ export class Api {
   }
 
   deleteCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+    return fetch(`${this._baseUrlMesto}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: {
-        authorization: '4668ff3a-c5ce-444d-bb20-dac560596bbe',
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+  }
+
+  getLike() {
+    return fetch(`${this._baseUrlMesto}/cards`, {
+      method: 'GET',
+      headers: this._headers,
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+  }
+
+
+  putLike(cardId) {
+    return fetch(`${this._baseUrlMesto}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: this._headers,
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+  }
+
+  deleteLike(cardId) {
+    return fetch(`${this._baseUrlMesto}/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: this._headers,
     })
       .then(res => {
         if (res.ok) {
