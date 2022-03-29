@@ -14,7 +14,9 @@
 /* секция profile */
 @import url(../bloks/profile/profile.css);
 @import url(../bloks/profile/__content/profile__content.css);
+@import url(../bloks/profile/__avatar-container/profile__avatar-container.css);
 @import url(../bloks/profile/__avatar/profile__avatar.css);
+@import url(../bloks/profile/__avatar-button/profile__avatar-button.css);
 @import url(../bloks/profile/__info/profile__info.css);
 @import url(../bloks/profile/__title/profile__title.css);
 @import url(../bloks/profile/__subtitle/profile__subtitle.css);
@@ -49,6 +51,7 @@
 /* секция pop-up-form */
 @import url(../bloks/pop-up-form/pop-up-form.css);
 @import url(../bloks/pop-up-form/_delete/pop-up-form_delete.css);
+@import url(../bloks/pop-up-form/_avatar-edit/pop-up-form_avatar-edit.css);
 @import url(../bloks/pop-up-form/__title/pop-up-form__title.css);
 @import url(../bloks/pop-up-form/__title/_delete/pop-up-form__title_delete.css);
 @import url(../bloks/pop-up-form/__field/pop-up-form__field.css);

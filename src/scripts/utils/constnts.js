@@ -1,6 +1,7 @@
 // глобальные переменные
 export const cardsElementSelector = '.element-list';
 export const openProfileButton = document.querySelector('.profile__edit-button');
+export const openAvatarEditButton = document.querySelector('.profile__avatar-button');
 export const openNewCardButton = document.querySelector('.profile__add-button');
 export const nameSelector = '.profile__title';
 export const jobSelector = '.profile__subtitle';
@@ -55,11 +56,19 @@ export const popupSettings = {
 
 export const userInfoPopup = {
   id: '#pop-up-profile',
-  name: '[name =" profile-form"]',
+  name: '[name = "profile-form"]',
   inputTitle: '#pop-up-form-profile-title',
   inputAddedInfo: '#pop-up-form-profile-added-info',
   popupElement: document.querySelector('#pop-up-profile'),
   formElement: document.querySelector('[name = "profile-form"]')
+};
+
+export const avatarPopup = {
+  id: '#pop-up-avatar-edit',
+  name: '[name = "avatar-form"]',
+  inputAddedInfo: '#pop-up-form-avatar-url',
+  popupElement: document.querySelector('#pop-up-avatar-edit'),
+  formElement: document.querySelector('[name = "avatar-form"]')
 };
 
 export const newCardPopup = {

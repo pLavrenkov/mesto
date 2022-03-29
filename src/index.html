@@ -15,7 +15,10 @@
     <main class="content">
       <section class="profile">
         <div class="profile__content">
-          <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+          <div class="profile__avatar-container">
+            <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+            <button type="button" class="profile__avatar-button"></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
             <p class="profile__subtitle">Исследователь океана</p>
@@ -58,6 +61,18 @@
         <input type="text" class="pop-up-form__field" placeholder="Введите занятие" id="pop-up-form-profile-added-info"
           name="info" required minlength="2" maxlength="200" autocomplete="off">
         <span class="pop-up-form__input-error pop-up-form-profile-added-info-error"></span>
+        <button type="submit" class="pop-up-form__button-submit">Сохранить</button>
+      </form>
+    </div>
+  </section>
+  <section class="pop-up" id="pop-up-avatar-edit">
+    <div class="pop-up__container">
+      <button type="button" class="pop-up__button-close"></button>
+      <form class="pop-up-form pop-up-form_avatar-edit" name="avatar-form" novalidate>
+        <h2 class="pop-up-form__title">Обновить аватар</h2>
+        <input type="url" class="pop-up-form__field" placeholder="Ссылка на картинку" id="pop-up-form-avatar-url"
+          name="info" required autocomplete="url">
+        <span class="pop-up-form__input-error pop-up-form-avatar-url-error"></span>
         <button type="submit" class="pop-up-form__button-submit">Сохранить</button>
       </form>
     </div>
