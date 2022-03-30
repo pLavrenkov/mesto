@@ -19,9 +19,6 @@ export class Api {
       .then(obj => {
         return obj;
       })
-      .catch(err => {
-        console.log(err);
-      });
   }
 
   getUserInfo() {
@@ -36,9 +33,6 @@ export class Api {
           return Promise.reject(`Ошибка: ${res.status}`);
         }
       })
-      .catch((err) => {
-        console.log(err);
-      });
   }
 
   patchUserInfo(name, about) {
@@ -56,9 +50,6 @@ export class Api {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .catch((err) => {
-        console.log(err);
-      });
   }
 
   patchAvatar(url) {
@@ -96,8 +87,7 @@ export class Api {
         return Promise.reject(`Ошибка: ${res.status}`);
       })
       .then(obj => {
-        console.log(obj);
-        return obj;
+         return obj;
       });
   }
 
@@ -126,7 +116,6 @@ export class Api {
         return Promise.reject(`Ошибка: ${res.status}`);
       })
   }
-
 
   putLike(cardId) {
     return fetch(`${this._baseUrlMesto}/cards/${cardId}/likes`, {

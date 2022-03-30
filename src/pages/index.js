@@ -12,7 +12,6 @@ import {
   nameInput,
   jobInput,
   cardSelector,
-  initialCards,
   // импорты настроек попапов
   popupSettings,
   userInfoPopup,
@@ -31,18 +30,8 @@ import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
 import { PopupDeleteCard } from '../scripts/components/PopupDeleteCard.js'
 import { UserInfo } from '../scripts/components/UserInfo.js';
 import { Api } from '../scripts/components/Api.js'
-//import { pop } from 'core-js/core/array';
 
-/*const userApi = new Api(
-  'https://nomoreparties.co/v1/cohort-38',
-  {
-    authorization: '4668ff3a-c5ce-444d-bb20-dac560596bbe',
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  }
-);*/
-
-
+// экземпляр класса Api
 const api = new Api(
   {
     baseUrlMesto: 'https://mesto.nomoreparties.co/v1/cohort-38',
@@ -55,14 +44,18 @@ const api = new Api(
   }
 );
 
+// получение информации о пользователе с сервера при загрузке страницы
 api.getUserInfo()
   .then(res => {
-    console.log(res);
     document.querySelector('.profile__title').textContent = res.name;
     document.querySelector('.profile__subtitle').textContent = res.about;
     document.querySelector('.profile__avatar').src = res.avatar;
+  })
+  .catch(err => {
+    alert(`При получении данных пользователя возникла ошибка ${err}`);
   });
 
+// обогащение индивидуальных обхектов с попапами общими данными
 const userInfoPopupUpgrade = Object.assign(userInfoPopup, popupSettings);
 const avatarPopupUpgrade = Object.assign(avatarPopup, popupSettings);
 const imagePopupUpgrade = Object.assign(imagePopup, popupSettings);
@@ -79,13 +72,24 @@ avatarValidation.enableValidation();
 const newCardValidation = new FormValidation(popupSettings, newCardPopupUpgrade.formElement);
 newCardValidation.enableValidation();
 
-//обработка popup с user info
+// установка информации о пользователе
 const makeUserInfo = new UserInfo(nameSelector, jobSelector);
 
 const popupUserInfo = new PopupWithForm(userInfoPopupUpgrade, function ({ title, info }) {
   makeUserInfo.setUserInfo(title, info);
-  api.patchUserInfo(title, info);
-  popupUserInfo.close();
+  api.patchUserInfo(title, info)
+    .then(res => {
+      userInfoPopupUpgrade.formElement.querySelector(userInfoPopupUpgrade.submitButton).textContent = 'Сохранение...';
+      return res;
+    })
+    .catch(err => {
+      alert(`При обновлении данных пользователя возникла ошибка ${err}`);
+    })
+    .finally(res => {
+      userInfoPopupUpgrade.formElement.querySelector(userInfoPopupUpgrade.submitButton).textContent = 'Сохранить';
+      popupUserInfo.close();
+      return res;
+    });
 });
 popupUserInfo.setEventListeners();
 
@@ -97,15 +101,22 @@ openProfileButton.addEventListener('click', function () {
   popupUserInfo.open();
 });
 
+// установка аватара
 const popupAvatar = new PopupWithForm(avatarPopupUpgrade, function () {
   const url = avatarPopupUpgrade.formElement.querySelector(avatarPopupUpgrade.input).value;
-  console.log(url);
   api.patchAvatar(url)
-  .then(user => {
-    console.log(user.avatar);
-    document.querySelector('.profile__avatar').src = user.avatar;
-  });
-  popupAvatar.close();
+    .then(user => {
+      document.querySelector('.profile__avatar').src = user.avatar;
+      avatarPopupUpgrade.formElement.querySelector(avatarPopupUpgrade.submitButton).textContent = 'Сохранение...';
+    })
+    .catch(err => {
+      alert(`При обновлении аватара возникла ошибка ${err}`);
+    })
+    .finally(res => {
+      avatarPopupUpgrade.formElement.querySelector(avatarPopupUpgrade.submitButton).textContent = 'Сохранить';
+      popupAvatar.close();
+      return res;
+    });
 });
 popupAvatar.setEventListeners();
 
@@ -115,6 +126,7 @@ openAvatarEditButton.addEventListener('click', function () {
   popupAvatar.open();
 })
 
+// демонстрация картинки
 const pictureView = new PopupWithImage(imagePopupUpgrade);
 pictureView.setEventListeners();
 
@@ -126,13 +138,13 @@ function handleCardClick(name, link) {
   pictureView.open(data);
 }
 
+// установка карточек
 api.getInitialCards()
   .then(cards => {
     api.getUserInfo()
+      // получение ID пользователя для передачи в класс Card
       .then(user => {
         const userId = user._id;
-        console.log(userId);
-
         const cardSection = new Section({
           items: cards,
           renderer: (cardItem) => {
@@ -142,22 +154,19 @@ api.getInitialCards()
         },
           cardsElementSelector
         );
-
         cardSection.createItems();
-
         //popup для новых карточек
         const popupAddCard = new PopupWithForm(newCardPopupUpgrade, function (data) {
           handleSubmitNewCardForm(data);
-          popupAddCard.close();
         });
         popupAddCard.setEventListeners();
-
+        // слушатели событий для попапа с новой карточкой
         openNewCardButton.addEventListener('click', function () {
           newCardValidation.disactiveSubmitButton();
           newCardValidation.resetValidation();
           popupAddCard.open();
         });
-
+        // создание новой карточки с функцией удаления
         function createCard(cardItem) {
           const card = new Card(cardItem, cardSelector, handleCardClick, api, userId);
           const cardElement = card.generateCard();
@@ -165,7 +174,10 @@ api.getInitialCards()
             deletePopupUpgrade,
             function () {
               cardElement.remove();
-              api.deleteCard(cardItem._id);
+              api.deleteCard(cardItem._id)
+                .catch(err => {
+                  alert(`При удалении карточки возникла ошибка ${err}`);
+                });
               popupDeleteCard.close();
             },
             cardItem._id);
@@ -175,7 +187,7 @@ api.getInitialCards()
           });
           return cardElement;
         }
-
+        // обработчик новой карточки
         function handleSubmitNewCardForm(data) {
           const bigdata = {
             name: data.title,
@@ -183,11 +195,25 @@ api.getInitialCards()
           };
           api.putNewCard(bigdata.name, bigdata.link)
             .then(obj => {
-              console.log(obj);
+              newCardPopupUpgrade.formElement.querySelector(newCardPopupUpgrade.submitButton).textContent = 'Сохраняю...';
               cardSection.setItem(createCard(obj));
+            })
+            .catch(err => {
+              alert(`При создании карточки возникла ошибка ${err}`);
+            })
+            .finally(res => {
+              popupAddCard.close();
+              newCardPopupUpgrade.formElement.querySelector(newCardPopupUpgrade.submitButton).textContent = 'Сохранить';
+              return res;
             });
         }
       })
+      .catch(err => {
+        alert(`При получении данных пользователя возникла ошибка ${err}`);
+      })
+  })
+  .catch(err => {
+    alert(`При создании карточек возникла ошибка ${err}`);
   });
 
 
