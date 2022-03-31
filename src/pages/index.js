@@ -7,11 +7,13 @@ import {
   openNewCardButton,
   nameSelector,
   jobSelector,
+  avatarSelector,
   openProfileButton,
   openAvatarEditButton,
   nameInput,
   jobInput,
   cardSelector,
+  binSelector,
   // импорты настроек попапов
   popupSettings,
   userInfoPopup,
@@ -44,12 +46,14 @@ const api = new Api(
   }
 );
 
+// установка информации о пользователе
+const makeUserInfo = new UserInfo(nameSelector, jobSelector, avatarSelector);
+
 // получение информации о пользователе с сервера при загрузке страницы
 api.getUserInfo()
   .then(res => {
-    document.querySelector('.profile__title').textContent = res.name;
-    document.querySelector('.profile__subtitle').textContent = res.about;
-    document.querySelector('.profile__avatar').src = res.avatar;
+    makeUserInfo.setUserInfo(res.name, res.about);
+    makeUserInfo.setAvatar(res);
   })
   .catch(err => {
     alert(`При получении данных пользователя возникла ошибка ${err}`);
@@ -72,22 +76,21 @@ avatarValidation.enableValidation();
 const newCardValidation = new FormValidation(popupSettings, newCardPopupUpgrade.formElement);
 newCardValidation.enableValidation();
 
-// установка информации о пользователе
-const makeUserInfo = new UserInfo(nameSelector, jobSelector);
+
 
 const popupUserInfo = new PopupWithForm(userInfoPopupUpgrade, function ({ title, info }) {
-  makeUserInfo.setUserInfo(title, info);
+  popupUserInfo.renderLoading('Сохранение...');
   api.patchUserInfo(title, info)
     .then(res => {
-      userInfoPopupUpgrade.formElement.querySelector(userInfoPopupUpgrade.submitButton).textContent = 'Сохранение...';
+      makeUserInfo.setUserInfo(title, info);
+      popupUserInfo.close();
       return res;
     })
     .catch(err => {
       alert(`При обновлении данных пользователя возникла ошибка ${err}`);
     })
     .finally(res => {
-      userInfoPopupUpgrade.formElement.querySelector(userInfoPopupUpgrade.submitButton).textContent = 'Сохранить';
-      popupUserInfo.close();
+      popupUserInfo.renderLoading('Сохранить');
       return res;
     });
 });
@@ -102,19 +105,18 @@ openProfileButton.addEventListener('click', function () {
 });
 
 // установка аватара
-const popupAvatar = new PopupWithForm(avatarPopupUpgrade, function () {
-  const url = avatarPopupUpgrade.formElement.querySelector(avatarPopupUpgrade.input).value;
-  api.patchAvatar(url)
+const popupAvatar = new PopupWithForm(avatarPopupUpgrade, function (urlObj) {
+  popupAvatar.renderLoading('Сохранение...');
+  api.patchAvatar(urlObj.info)
     .then(user => {
-      document.querySelector('.profile__avatar').src = user.avatar;
-      avatarPopupUpgrade.formElement.querySelector(avatarPopupUpgrade.submitButton).textContent = 'Сохранение...';
+      makeUserInfo.setAvatar(user);
+      popupAvatar.close();
     })
     .catch(err => {
       alert(`При обновлении аватара возникла ошибка ${err}`);
     })
     .finally(res => {
-      avatarPopupUpgrade.formElement.querySelector(avatarPopupUpgrade.submitButton).textContent = 'Сохранить';
-      popupAvatar.close();
+      popupAvatar.renderLoading('Сохранить');
       return res;
     });
 });
@@ -137,6 +139,22 @@ function handleCardClick(name, link) {
   }
   pictureView.open(data);
 }
+
+function handleDeleteCard(card, cardItem) {
+  console.log(cardItem);
+  api.deleteCard(card._id)
+    .then(res => {
+      console.log(res);
+      cardItem.remove();
+      popupDeleteCard.close();
+    })
+    .catch(err => {
+      alert(`При удалении карточки возникла ошибка ${err}`);
+    });
+}
+
+const popupDeleteCard = new PopupDeleteCard(deletePopupUpgrade, handleDeleteCard);
+popupDeleteCard.setEventListeners();
 
 // установка карточек
 api.getInitialCards()
@@ -168,9 +186,9 @@ api.getInitialCards()
         });
         // создание новой карточки с функцией удаления
         function createCard(cardItem) {
-          const card = new Card(cardItem, cardSelector, handleCardClick, api, userId);
+          const card = new Card(cardItem, cardSelector, handleCardClick, api, userId, binSelector, popupDeleteCard);
           const cardElement = card.generateCard();
-          const popupDeleteCard = new PopupDeleteCard(
+          /*const popupDeleteCard = new PopupDeleteCard(
             deletePopupUpgrade,
             function () {
               cardElement.remove();
@@ -184,7 +202,7 @@ api.getInitialCards()
           cardElement.querySelector('.element__bin-button').addEventListener('click', function () {
             popupDeleteCard.open();
             popupDeleteCard.setEventListeners();
-          });
+          });*/
           return cardElement;
         }
         // обработчик новой карточки
@@ -193,17 +211,17 @@ api.getInitialCards()
             name: data.title,
             link: data.info
           };
+          popupAddCard.renderLoading('Сохранение...');
           api.putNewCard(bigdata.name, bigdata.link)
             .then(obj => {
-              newCardPopupUpgrade.formElement.querySelector(newCardPopupUpgrade.submitButton).textContent = 'Сохраняю...';
               cardSection.setItem(createCard(obj));
+              popupAddCard.close();
             })
             .catch(err => {
               alert(`При создании карточки возникла ошибка ${err}`);
             })
             .finally(res => {
-              popupAddCard.close();
-              newCardPopupUpgrade.formElement.querySelector(newCardPopupUpgrade.submitButton).textContent = 'Сохранить';
+              popupAddCard.renderLoading('Сохранить');
               return res;
             });
         }

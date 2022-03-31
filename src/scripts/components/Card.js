@@ -1,5 +1,5 @@
 export class Card {
-  constructor(data, cardSelector, handleCardClick, api, userId) {
+  constructor(data, cardSelector, handleCardClick, api, userId, binSelector, popupDeleteCard) {
     this._title = data.name;
     this._image = data.link;
     this._data = data;
@@ -9,6 +9,8 @@ export class Card {
     this._cardId = this._data._id;
     this._likesArr = this._data.likes;
     this._userId = userId;
+    this._binSelector = binSelector;
+    this._popupDeleteCard = popupDeleteCard;
   }
 
   _getTemplate() {
@@ -47,6 +49,7 @@ export class Card {
             this._api.deleteLike(this._cardId)
               .then(res => {
                 this._element.querySelector('.element__likes').textContent = res.likes.length;
+                this._likeElement.classList.toggle('element__like_active');
               })
               .catch(err => {
                 alert(`При удалении лайка возникла ошибка ${err}`);
@@ -55,6 +58,7 @@ export class Card {
             this._api.putLike(this._cardId)
               .then(res => {
                 this._element.querySelector('.element__likes').textContent = res.likes.length;
+                this._likeElement.classList.toggle('element__like_active');
               })
               .catch(err => {
                 alert(`При установке лайка возникла ошибка ${err}`);
@@ -64,11 +68,15 @@ export class Card {
         .catch(err => {
           alert(`При получении данных о лайках возникла ошибка ${err}`);
         })
-      this._likeElement.classList.toggle('element__like_active');
     });
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._title, this._image);
     });
+    this._binElement = this._element.querySelector(this._binSelector);
+    this._binElement.addEventListener('click', (evt) => {
+      const cardElement = evt.target.closest('.element');
+      this._popupDeleteCard.open(this._data, cardElement);
+    })
   }
 }
 

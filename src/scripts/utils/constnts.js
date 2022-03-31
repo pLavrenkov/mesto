@@ -5,6 +5,7 @@ export const openAvatarEditButton = document.querySelector('.profile__avatar-but
 export const openNewCardButton = document.querySelector('.profile__add-button');
 export const nameSelector = '.profile__title';
 export const jobSelector = '.profile__subtitle';
+export const avatarSelector = '.profile__avatar';
 export const popUpProfile = document.querySelector('#pop-up-profile');
 export const nameInput = popUpProfile.querySelector('#pop-up-form-profile-title');
 export const jobInput = popUpProfile.querySelector('#pop-up-form-profile-added-info');
@@ -13,6 +14,7 @@ export const titleInput = popUpNewCard.querySelector('#pop-up-form-new-card-titl
 export const imageInput = popUpNewCard.querySelector('#pop-up-form-new-card-added-info');
 export const formNewCard = popUpNewCard.querySelector('.pop-up-form');
 export const cardSelector = '#card-element';
+export const binSelector = '.element__bin-button';
 
 // объекты с данными попапов
 export const popupSettings = {
