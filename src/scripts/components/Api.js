@@ -12,7 +12,7 @@ export class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getInitialCards() {
+  getCards() {
     return fetch(`${this._baseUrlMesto}/cards`, {
       headers: this._headers,
     }
